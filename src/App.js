@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import LoginForm from './LoginForm';
+import Header from './Components/Header';
+import LoginForm from './Components/LoginForm';
 import './App.css';
+import Products from './Components/Products';
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
       <div>
     <Header></Header>
     <LoginForm></LoginForm>
+    <Products></Products>
     </div>
     );
   }

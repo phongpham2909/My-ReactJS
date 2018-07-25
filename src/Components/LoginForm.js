@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Components/Styles/LoginForm.css';
+import '../Customs_CSS/Styles/LoginForm.css';
 
 import {
     Form,
