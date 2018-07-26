@@ -8,7 +8,7 @@ class Header extends Component {
         <Navbar inverse collapseOnSelect>
   <Navbar.Header>
     <Navbar.Brand>
-      <a href="#brand">React-Bootstrap</a>
+      <a href="#brand">Phong Store</a>
     </Navbar.Brand>
     <Navbar.Toggle />
   </Navbar.Header>
@@ -30,10 +30,10 @@ class Header extends Component {
     </Nav>
     <Nav pullRight>
       <NavItem eventKey={1} href="#">
-        Link Right
+      Đăng Nhập
       </NavItem>
       <NavItem eventKey={2} href="#">
-        Link Right
+      Đăng Ký
       </NavItem>
     </Nav>
   </Navbar.Collapse>

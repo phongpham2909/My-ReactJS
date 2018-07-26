@@ -19,7 +19,7 @@ class LoginForm extends Component {
             <Grid>
                 <Row className="text1">
                     <Col xs={12} md={12}>
-                    <h2> Đăng Nhập Hệ Thống </h2>
+                    <h2>Đăng Nhập</h2>
                     </Col>
                 </Row>
                 <Form horizontal className="app-login-form">
@@ -51,7 +51,7 @@ class LoginForm extends Component {
 
                                 <FormGroup>
                                     <Col smOffset={4} sm={8}>
-                                        <Button type="submit">Sign in</Button>
+                                        <Button type="submit">Login</Button>
                                     </Col>
                                 </FormGroup>
 

@@ -1,60 +1,38 @@
-import React , { Component } from 'react';
+import React, { Component } from 'react';
 
 import {
-    Grid, 
-    Row,
-    Button,
-    Thumbnail,
-    Col,
-
-         } from 'react-bootstrap';
+  Button,
+  Thumbnail,
+} from 'react-bootstrap';
 
 
 class Products extends Component {
-    render() {
-      return (
-        <Grid>
-              <Row className="text1">
-                    <Col xs={12} md={12}>
-                    <h2> Sản Phẩm Của Chúng Tôi </h2>
-                    </Col>
-                </Row>
-        <Row>
-          <Col xs={6} md={4}>
-            <Thumbnail src="/thumbnaildiv.png" alt="242x200">
-              <h3>Thumbnail labe    l</h3>
-              <p>Description</p>
-              <p>
-                <Button bsStyle="primary">Button</Button>&nbsp;
-                <Button bsStyle="default">Button</Button>
-              </p>
-            </Thumbnail>
-          </Col>
-          <Col xs={6} md={4}>
-            <Thumbnail src="/thumbnaildiv.png" alt="242x200">
-              <h3>Thumbnail label</h3>
-              <p>Description</p>
-              <p>
-                <Button bsStyle="primary">Button</Button>&nbsp;
-                <Button bsStyle="default">Button</Button>
-              </p>
-            </Thumbnail>
-          </Col>
-          <Col xs={6} md={4}>
-            <Thumbnail src="/thumbnaildiv.png" alt="242x200">
-              <h3>Thumbnail label</h3>
-              <p>Description</p>
-              <p>
-                <Button bsStyle="primary">Button</Button>&nbsp;
-                <Button bsStyle="default">Button</Button>
-              </p>
-            </Thumbnail>
-          </Col>
-        </Row>
-      </Grid>
-      );
-    }
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      message : ""
+    };
+    this.onChange = this.onChange.bind(this);
   }
-  
-  export default Products;
-  
+  onChange(event)
+  { 
+    this.setState({
+      message: "Đã Thêm"
+    });
+  }
+  render() {
+    return (
+            <Thumbnail src="./Images/anh1.jpg" alt="242x200">
+              <h4>{this.props.name}</h4>
+              <p>{this.props.Description}</p>
+              <p>
+                <Button onClick ={this.onChange} bsStyle="primary">Add To Cart</Button>&nbsp;
+              </p>
+            </Thumbnail>
+            
+    );
+  }
+}
+
+export default Products;
