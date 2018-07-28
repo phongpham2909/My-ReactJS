@@ -11,7 +11,7 @@ class Products extends Component {
   {
     super(props);
     this.state = {
-      message : ""
+      message : "32434324"
     };
     this.onChange = this.onChange.bind(this);
   }

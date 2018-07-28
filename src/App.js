@@ -4,6 +4,7 @@ import LoginForm from './Components/LoginForm';
 import './App.css';
 import Products from './Components/Products';
 import SigninForm from './Components/SigninForm';
+import Clock from './Components/Clock';
 
 import {
   Row,
@@ -16,10 +17,11 @@ class App extends Component {
     return (
       <div>
     <Header></Header>
+    <Clock name="Phong Pham"></Clock>
     <SigninForm></SigninForm>
     <LoginForm></LoginForm>
     <Grid>
-    <Row>
+    <Row>      
           <Col xs={6} md={4}>
     <Products name="Sản Phẩm 1" Description="Sản Phẩm Loại 1"></Products>
     </Col>
