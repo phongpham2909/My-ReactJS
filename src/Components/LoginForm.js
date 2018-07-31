@@ -17,32 +17,20 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);//Goi toi component cha cua thuoc tinh do
         this.state = {
-            message: "Mật Khẩu Or Password không hợp lệ!!!",
+            message: "Mật Khẩu hoặc Password không hợp lệ!!!",
             data: { loginname: "", password: "" }
         };
     }
     onSubmit() {
-        if (this.state.data.loginname === "phongpham2140051@gmail.com" || this.state.data.password === "29091996") {
-            alert(
-                "LoginName: " + this.state.data.loginname +
-                "\nPassword: " + this.state.data.password
-            );
+        if (this.state.data.loginname === "phongpham2140051@gmail.com" && this.state.data.password === "29091996") {
+            this.props.onShow();
         }
         else {
             alert(
-                alert(this.state.message)
+                (this.state.message)
             );
         }
     }
-    /*onHandel(event)
-    {
-        let newState = {
-            data: this.state.data
-        };
-        let inputName =  event.target.name;
-        newState.data[inputName] = event.target.value;
-        this.setState(newState);
-    }*/
     onHandelLoginName(event) {
         let newState = { data: this.state.data };
         newState.data.loginname = event.target.value;
@@ -94,14 +82,11 @@ class LoginForm extends Component {
                                     <Button onClick={this.onSubmit.bind(this)} type="submit">Login</Button>
                                 </Col>
                             </FormGroup>
-
                         </Col>
                     </Row>
                 </Form>
             </Grid>
-
         );
     }
 }
-
 export default LoginForm;

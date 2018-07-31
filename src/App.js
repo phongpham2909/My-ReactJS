@@ -1,40 +1,38 @@
 import React, { Component } from 'react';
 import Header from './Components/Header';
-import LoginForm from './Components/LoginForm';
 import './App.css';
-import Products from './Components/Products';
-import SigninForm from './Components/SigninForm';
-import Clock from './Components/Clock';
+import LoginForm from './Components/LoginForm';
 
-import {
-  Row,
-  Col,
-  Grid,
-} from 'react-bootstrap';
+
 
 class App extends Component {
+  constructor(props)
+  {
+    super(props);
+    this.state = {logged: false};
+  }
+  onLogged()
+  {
+    this.setState({logged: true});
+  }
+  onLogout()
+  {
+    this.setState({logged: false});
+  }
+  
+  buildLoginForm() {
+    let loginForm = [];
+    if (this.state.logged === false) {
+      loginForm.push((<LoginForm onShow={this.onLogged.bind(this)} key={1} />))
+    }
+    return loginForm;
+  }
   render() {
+    let loginForm = this.buildLoginForm();
     return (
       <div>
-    <Header></Header>
-    <Clock name="Phong Pham"></Clock>
-    <SigninForm></SigninForm>
-    <LoginForm></LoginForm>
-    <Grid>
-    <Row>      
-          <Col xs={6} md={4}>
-    <Products name="Sản Phẩm 1" Description="Sản Phẩm Loại 1"></Products>
-    </Col>
-    
-          <Col xs={6} md={4}>
-    <Products name="Sản Phẩm 2" Description="Sản Phẩm Loại 2"></Products>
-    </Col>
-    
-          <Col xs={6} md={4}>
-    <Products name="Sản Phẩm 3" Description="Sản Phẩm Loại 3"></Products>
-    </Col>
-        </Row>
-        </Grid>
+    <Header logged={this.state.logged} onLogout={this.onLogout.bind(this)}/>
+    {loginForm}
     </div>
     );
   }
