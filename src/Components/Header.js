@@ -46,7 +46,8 @@ class Header extends Component {
     return menus;
   }
   onLogout(event) {
-    this.props.onLogout();
+ 
+    this.props.onLogout(event);
   }
 
   render() {
@@ -56,7 +57,7 @@ class Header extends Component {
         <Navbar inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#brand">Phong Store</a>
+              <a href="/">Phong Store</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
