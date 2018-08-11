@@ -1,18 +1,43 @@
 import React, { Component } from 'react';
 import '../Customs_CSS/Styles/Header.css';
-
-
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
 
 class Header extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {logged: false, userinfo: {email: "",name: ""}};
+
+    let session = this.getSession();
+    if(session !== null)
+    {
+      this.state.userinfo.email = session.email;
+      this.state.userinfo.name = session.name;
+      this.state.logged = true;
+    }
 
   }
+  componentDidMount()
+  {
+    if (this.state.logged === false) {
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
+    }
+  }
+
+  getSession()
+  {
+    let session = window.localStorage.getItem("session");
+    if(session != null)
+    {
+      return JSON.parse(session);
+    }
+    return null;
+  }
+
   buildMenus() {
     let menus = [];
-    if (this.props.logged) {
       menus.push((
         <Nav key={1}>
           <NavItem eventKey={1} href="/">Home</NavItem>
@@ -25,8 +50,8 @@ class Header extends Component {
       ));
       menus.push((
         <Nav key={3}>
-          <NavDropdown eventKey={3} title="Account Management" id="basic-nav-dropdown">
-            <MenuItem onClick={this.onLogout.bind(this)} href="/accounts" eventKey={3.1}>Accounts</MenuItem>
+          <NavDropdown eventKey={3} title="Account" id="basic-nav-dropdown">
+            <MenuItem onClick={this.onLogout.bind(this)} href="/Accounts" eventKey={3.1}>Accounts</MenuItem>
             <MenuItem eventKey={3.2} href="/accounts/rules">Accounts Rules</MenuItem>
             <MenuItem eventKey={3.3}>Something else here</MenuItem>
             <MenuItem divider />
@@ -42,19 +67,23 @@ class Header extends Component {
           </NavDropdown>
         </Nav>
       ));
-    }
     return menus;
   }
   onLogout(event) {
- 
-    this.props.onLogout(event);
+    window.localStorage.removeItem("session");
+    window.location.href = "/login";
+    event.preventDefault();
+
   }
 
   render() {
     let menus = this.buildMenus();
-    return (
-      <div>
-        <Navbar inverse collapseOnSelect>
+    let headerTemplate = [];
+    if(this.state.logged === true && window.location.pathname !== "/login" )
+    {
+      menus = this.buildMenus();
+      headerTemplate.push((
+        <Navbar key= {1 }inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
               <a href="/">Phong Store</a>
@@ -65,6 +94,11 @@ class Header extends Component {
             {menus}
           </Navbar.Collapse>
         </Navbar>
+      ));
+    }
+    return (
+      <div>
+        {headerTemplate};
       </div>
     );
   }

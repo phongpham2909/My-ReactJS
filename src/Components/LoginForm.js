@@ -1,17 +1,6 @@
 import React, { Component } from 'react';
 import '../Customs_CSS/Styles/LoginForm.css';
-
-import {
-    Form,
-    FormGroup,
-    FormControl,
-    Col,
-    Checkbox,
-    Button,
-    ControlLabel,
-    Grid,
-    Row,
-} from "react-bootstrap";
+import {Form,FormGroup,FormControl,Col,Checkbox,Button,ControlLabel,Grid,Row} from "react-bootstrap";
 
 class LoginForm extends Component {
     constructor(props) {
@@ -20,15 +9,48 @@ class LoginForm extends Component {
             message: "Mật Khẩu hoặc Password không hợp lệ!!!",
             data: { loginname: "", password: "" }
         };
+
+        let session = this.getSession();
+        if (session !== null) {
+            this.state.logged = true;
+        }
+        this.onKeyDownHandle = this.onKeyDownHandle.bind(this);
+    }
+
+    getSession() {
+        let session = window.localStorage.getItem("session");
+        if (session != null) {
+            return JSON.parse(session);
+        }
+        return null;
+    }
+
+    componentWillMount()
+    {
+
+    }
+    componentDidMount() {
+        if (this.state.logged === true) {
+            window.location.href = "/";
+        }
     }
     onSubmit() {
+
         if (this.state.data.loginname === "phongpham2140051@gmail.com" && this.state.data.password === "29091996") {
             this.props.onShow();
+            window.localStorage.setItem("session", JSON.stringify(this.state.data));
+            window.localStorage.getItem("session");
         }
         else {
             alert(
                 (this.state.message)
             );
+        }
+    }
+    onKeyDownHandle(event) {
+        if (event.keyCode === 13) {
+            
+
         }
     }
     onHandelLoginName(event) {
@@ -44,6 +66,7 @@ class LoginForm extends Component {
     }
     render() {
         return (
+           <div>
             <Grid>
                 <Row className="text1">
                     <Col xs={12} md={12}>
@@ -86,6 +109,7 @@ class LoginForm extends Component {
                     </Row>
                 </Form>
             </Grid>
+            </div>
         );
     }
 }
