@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "image":
+        "https://images.pexels.com/photos/1485781/pexels-photo-1485781.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "name": "Gucci",
+      "price": 2000000,
+      "status": true
+    },
+    {
+      "id": 2,
+      "image":
+        "https://images.pexels.com/photos/1485781/pexels-photo-1485781.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "name": "Gucci",
+      "price": 3000000,
+      "status": false
+    }
+  ]
+
+
+}
