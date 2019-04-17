@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { Switch, Route, Redirect } from "react-router-dom";
-// nodejs library that concatenates classes
-import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
@@ -19,16 +17,6 @@ import GridItem from "../components/Pages/Grid/GridItem";
 import pagesRoutes from "../routes/pages";
 import styles from "../assets/jss/material-kit-pro-react/views/ecommerceStyle";
 
-
-import face1 from "../assets/img/avatar.jpg";
-import face2 from "../assets/img/avatar.jpg";
-import face3 from "../assets/img/avatar.jpg";
-import face4 from "../assets/img/avatar.jpg";
-import face5 from "../assets/img/avatar.jpg";
-import face6 from "../assets/img/avatar.jpg";
-import face7 from "../assets/img/avatar.jpg";
-import face8 from "../assets/img/avatar.jpg";
-
 class Pages extends Component {
     componentDidMount() {
         window.scrollTo(0, 0);
@@ -40,14 +28,14 @@ class Pages extends Component {
             <div>
                 <Header
                     color="transparent"
-                    brand="My Project"
-                    links={<HeaderLinks dropdownHoverColor="rose" {...rest} />}
+                    brand="Tap Hoa Hang Hieu"
+                    links={<HeaderLinks dropdownHoverColor="primary" {...rest} />}
                     fixed
                     changeColorOnScroll={{
-                        height: 300,
-                        color: "info"
+                        height: 200,
+                        color: "dark"
                     }}
-                    {...rest}   
+                    {...rest}
                 />
                 <Switch>
                     {pagesRoutes.map((prop, key) => {
@@ -68,7 +56,6 @@ class Pages extends Component {
                         );
                     })}
                 </Switch>
-                <br/>
                 <Footer
                     theme="dark"
                     content={
@@ -125,7 +112,7 @@ class Pages extends Component {
                                     href="#phongpham"
                                     className={classes.aClasses}
                                 >
-                                    Creative Tim
+                                    Phong Pham
                                 </a>{" "}
                                 All Rights Reserved.
                             </div>
@@ -134,7 +121,7 @@ class Pages extends Component {
                 >
                     <GridContainer>
                         <GridItem xs={12} sm={4} md={4}>
-                            <h5>About Us</h5>
+                            <h5 className={`${classes.title} ${classes.customFont}`}>About Us</h5>
                             <p>
                                 Creative Tim is a startup that creates design tools that make
                                 the web development process faster and easier.{" "}
@@ -146,100 +133,41 @@ class Pages extends Component {
                             </p>
                         </GridItem>
                         <GridItem xs={12} sm={4} md={4}>
-                            <h5>Social Feed</h5>
+                            <h5 className={`${classes.title} ${classes.customFont}`}>Customer Care</h5>
                             <div className={classes.socialFeed}>
+                            <a href="#1">
                                 <div>
-                                    <i className="fab fa-twitter" />
-                                    <p>How to handle ethical disagreements with your clients.</p>
+                                   <p>Shopping Guide</p>
                                 </div>
+                            </a>
+                            <a href="#1">
                                 <div>
-                                    <i className="fab fa-twitter" />
-                                    <p>The tangible benefits of designing at 1x pixel density.</p>
+                                   <p>Guarantee</p>
                                 </div>
+                            </a>
+                            <a href="#1">
                                 <div>
-                                    <i className="fab fa-facebook-square" />
-                                    <p>
-                                        A collection of 25 stunning sites that you can use for
-                                        inspiration.
-                                    </p>
+                                   <p>Gift regulation</p>
                                 </div>
+                            </a>
+                            <a href="#1">
+                                <div>
+                                   <p>terms of use</p>
+                                </div>
+                            </a>
                             </div>
                         </GridItem>
                         <GridItem xs={12} sm={4} md={4}>
-                            <h5>Instagram Feed</h5>
+                            <h5 className={`${classes.title} ${classes.customFont}`}>Location Stores</h5>
                             <div className={classes.galleryFeed}>
-                                <img
-                                    src={face1}
-                                    className={classNames(
-                                        classes.img,
-                                        classes.imgRaised,
-                                        classes.imgRounded
-                                    )}
-                                    alt="..."
-                                />
-                                <img
-                                    src={face2}
-                                    className={classNames(
-                                        classes.img,
-                                        classes.imgRaised,
-                                        classes.imgRounded
-                                    )}
-                                    alt="..."
-                                />
-                                <img
-                                    src={face3}
-                                    className={classNames(
-                                        classes.img,
-                                        classes.imgRaised,
-                                        classes.imgRounded
-                                    )}
-                                    alt="..."
-                                />
-                                <img
-                                    src={face4}
-                                    className={classNames(
-                                        classes.img,
-                                        classes.imgRaised,
-                                        classes.imgRounded
-                                    )}
-                                    alt="..."
-                                />
-                                <img
-                                    src={face5}
-                                    className={classNames(
-                                        classes.img,
-                                        classes.imgRaised,
-                                        classes.imgRounded
-                                    )}
-                                    alt="..."
-                                />
-                                <img
-                                    src={face6}
-                                    className={classNames(
-                                        classes.img,
-                                        classes.imgRaised,
-                                        classes.imgRounded
-                                    )}
-                                    alt="..."
-                                />
-                                <img
-                                    src={face7}
-                                    className={classNames(
-                                        classes.img,
-                                        classes.imgRaised,
-                                        classes.imgRounded
-                                    )}
-                                    alt="..."
-                                />
-                                <img
-                                    src={face8}
-                                    className={classNames(
-                                        classes.img,
-                                        classes.imgRaised,
-                                        classes.imgRounded
-                                    )}
-                                    alt="..."
-                                />
+                                <div>
+                                    <h6>Tp.HCM - LotteMart Quận 7</h6>
+                                    <p>469 Nguyễn Hữu Thọ, P. Tân Hưng, Quận 7, TP. Hồ Chí Minh</p>
+                                </div>
+                                <div>
+                                    <h6>Tp.HCM - Bình Tân</h6>
+                                    <p>748 Tỉnh Lộ 10, Khu phố 18, Phường Bình Trị Đông, Quận Bình Tân, TP. Hồ Chí Minh</p>
+                                </div>
                             </div>
                         </GridItem>
                     </GridContainer>

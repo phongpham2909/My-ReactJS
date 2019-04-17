@@ -5,12 +5,14 @@ import {
   mlAuto,
   mrAuto,
   main,
-  mainRaised
-} from "assets/jss/material-kit-pro-react.jsx";
+  whiteColor,
+  mainRaised,
+  grayColor
+} from "../../material-kit-pro-react";
 
-import imagesStyle from "assets/jss/material-kit-pro-react/imagesStyles.jsx";
+import imagesStyle from "../imagesStyles";
 
-import tooltipsStyle from "assets/jss/material-kit-pro-react/tooltipsStyle.jsx";
+import tooltipsStyle from "../tooltipsStyle";
 
 const profilePageStyle = {
   container,
@@ -18,7 +20,7 @@ const profilePageStyle = {
   ...tooltipsStyle,
   cardTitleWhite: {
     ...cardTitle,
-    color: "#FFFFFF !important"
+    color: whiteColor + "  !important"
   },
   cardTitle,
   profile: {
@@ -33,7 +35,7 @@ const profilePageStyle = {
   description: {
     margin: "1.071rem auto 0",
     maxWidth: "600px",
-    color: "#999"
+    color: grayColor[0]
   },
   textCenter: {
     textAlign: "center !important"
@@ -144,8 +146,3 @@ const profilePageStyle = {
 };
 
 export default profilePageStyle;
-
-
-
-// WEBPACK FOOTER //
-// ./src/assets/jss/material-kit-pro-react/views/profilePageStyle.jsx

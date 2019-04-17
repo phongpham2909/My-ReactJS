@@ -128,6 +128,9 @@ const styles = {
     textDecoration: "none",
     position: "relative",
     display: "block"
+  }, 
+  customFont: {
+    color: "#fff"
   }
 };
 

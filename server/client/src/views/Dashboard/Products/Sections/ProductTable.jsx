@@ -80,7 +80,7 @@ class ProductTable extends Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState({ selected: this.props.products.map(n => n.productID) });
+      this.setState({ selected: this.props.data.map(n => n.productID) });
       return;
     }
     this.setState({ selected: [] });
@@ -120,7 +120,6 @@ class ProductTable extends Component {
 
   render() {
     var { classes, data } = this.props;
-    console.log(data)
     const { order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
     return (
@@ -142,7 +141,8 @@ class ProductTable extends Component {
                 .map(product => {
                   const isSelected = this.isSelected(product.productID);
                   return (
-                    <TableRow 
+
+                    <TableRow
                       hover
                       onClick={event => this.handleClick(event, product.productID)}
                       role="checkbox"
@@ -151,15 +151,15 @@ class ProductTable extends Component {
                       key={product.productID}
                       selected={isSelected}
                     >
-                    <TableCell padding="checkbox">
-                        <Checkbox 
+                      <TableCell padding="checkbox">
+                        <Checkbox
                           classes={{
                             root: classes.customCheckbox,
                             checked: classes.checked,
-                          }} 
-                        checked={isSelected} />
+                          }}
+                          checked={isSelected} />
                       </TableCell>
-                   
+
                       <TableCell
                         component="th"
                         scope="row"
@@ -168,13 +168,13 @@ class ProductTable extends Component {
                         <div className={classes.imgContainer}>
                           <img
                             className={classes.img}
-                            src={product.productImage}
+                            src={product.productImageOfficial}
                             alt={product.productName}
                           />
                         </div>
                       </TableCell>
                       <TableCell align="right"><b>{product.productName}</b></TableCell>
-                      <TableCell align="right">{this.format_curency(product.productPrice)} đ</TableCell>
+                      <TableCell align="right">{this.format_curency(product.productPrice)}đ</TableCell>
                       <TableCell align="right">{product.productQuantity}</TableCell>
                       <TableCell align="right">
                         <Chip
@@ -186,7 +186,7 @@ class ProductTable extends Component {
                       </TableCell>
                       <TableCell align="right">
 
-                        <Link to={`/dashboard/product-management/${product.productID}/edit`}>
+                        <Link to={`/administration/${product.productID}/edit`}>
                           <Tooltip title="Edit" placement="top">
                             <Button
                               color="success"
@@ -208,14 +208,16 @@ class ProductTable extends Component {
                         </Tooltip>
 
                       </TableCell>
+
                     </TableRow>
+
                   );
                 })}
-              {/*this.props.children*/}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 49 * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
+
               )}
             </TableBody>
           </Table>

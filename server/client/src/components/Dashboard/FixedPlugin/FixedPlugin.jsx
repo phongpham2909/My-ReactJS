@@ -46,7 +46,7 @@ class FixedPlugin extends Component {
       <div className="fixed-plugin">
         <div id="fixedPluginClasses" className={this.props.fixedClasses}>
           <div onClick={this.handleClick}>
-            <i className="fa fa-cog fa-2x" />
+            <i className="fa fa-cog fa-2x spin" />
           </div>
           <ul className="dropdown-menu">
             <li className="header-title">SIDEBAR FILTERS</li>

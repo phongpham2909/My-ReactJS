@@ -1,11 +1,13 @@
-import { cardTitle } from "../../../material-dashboard-pro-react";
+import { cardTitle, primaryColor, grayColor } from "../../../material-dashboard-pro-react";
 import extendedFormStyle from "../extendedFormsStyle";
 import regularFormsStyle from "../regularFormsStyle";
 import customCheckboxRadioSwitch from "../../customCheckboxRadioSwitch";
 import purple from '@material-ui/core/colors/purple';
+import customSelectStyle from "../../customSelectStyle";
 
 const productManagementStyle = theme => ({
   ...customCheckboxRadioSwitch,
+  ...customSelectStyle,
   ...regularFormsStyle,
   ...extendedFormStyle,
   cardIconTitle: {
@@ -127,6 +129,18 @@ const productManagementStyle = theme => ({
       color: purple[500],
     },
     checked: {},
+  },
+  selectFormControl: {
+    margin: "25px 1px 25px 0px !important",
+    "& > div": {
+      "&:before": {
+        borderBottomWidth: "1px !important",
+        borderBottomColor: grayColor[4] + "!important"
+      },
+      "&:after": {
+        borderBottomColor: primaryColor[0] + "!important"
+      }
+    }
   },
 
 });

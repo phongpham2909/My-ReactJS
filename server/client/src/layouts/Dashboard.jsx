@@ -2,6 +2,7 @@ import React from "react";
 import cx from "classnames";
 import PropTypes from "prop-types";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -13,6 +14,8 @@ import Footer from "../components/Dashboard/Footer/Footer";
 import Sidebar from "../components/Dashboard/Sidebar/Sidebar";
 import FixedPlugin from "../components/Dashboard/FixedPlugin/FixedPlugin";
 
+import ErrorPage from "../views/Pages/ErrorPage/ErrorPage";
+
 import dashboardRoutes from "../routes/dashboard";
 
 import appStyle from "../assets/jss/material-dashboard-pro-react/layouts/dashboardStyle";
@@ -20,6 +23,10 @@ import appStyle from "../assets/jss/material-dashboard-pro-react/layouts/dashboa
 import image from "../assets/img/sunrise-phu-quoc-island-ocean.jpg";
 import logoWhite from "../assets/img/reactlogo.png";
 import logoBlue from "../assets/img/reactlogo.png";
+
+import { connect } from 'react-redux';
+import { actionFetchCategoryRequest, actFetchProductsRequest } from '../redux/actions/index';
+
 
 const switchRoutes = (
   <Switch>
@@ -49,7 +56,8 @@ class Dashboard extends React.Component {
       color: "purple",
       bgColor: "black",
       hasImage: true,
-      fixedClasses: "dropdown"
+      fixedClasses: "dropdown",
+      logged: false
     };
   }
   handleImageClick = (image) => {
@@ -82,6 +90,16 @@ class Dashboard extends React.Component {
       this.setState({ mobileOpen: false });
     }
   }
+
+  componentWillMount() {
+    if (localStorage && localStorage.getItem("authAccount")) {
+      this.setState({
+        logged: !this.state.logged
+      });
+      this.props.fetchAllProducts();
+      this.props.fetchAllCategory();
+    }
+  }
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.refs.mainPanel, {
@@ -107,6 +125,7 @@ class Dashboard extends React.Component {
     }
   }
   render() {
+    const { logged } = this.state;
     const { classes, ...rest } = this.props;
     const mainPanel =
       classes.mainPanel +
@@ -116,6 +135,13 @@ class Dashboard extends React.Component {
         [classes.mainPanelWithPerfectScrollbar]:
           navigator.platform.indexOf("Win") > -1
       });
+    if (logged === false) {
+      return (
+        <div ref="mainPanel">
+            <ErrorPage></ErrorPage>
+        </div>
+      );
+    }
     return (
       <div className={classes.wrapper}>
         <Sidebar
@@ -130,6 +156,7 @@ class Dashboard extends React.Component {
           miniActive={this.state.miniActive}
           {...rest}
         />
+         <ToastContainer autoClose={2000} />
         <div className={mainPanel} ref="mainPanel">
           <Header
             sidebarMinimize={this.sidebarMinimize}
@@ -144,8 +171,8 @@ class Dashboard extends React.Component {
               <div className={classes.container}>{switchRoutes}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
+              <div className={classes.map}>{switchRoutes}</div>
+            )}
           {this.getRoute() ? <Footer fluid /> : null}
           <FixedPlugin
             handleImageClick={this.handleImageClick}
@@ -170,4 +197,16 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(appStyle)(Dashboard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchAllProducts: () => {
+          dispatch(actFetchProductsRequest());
+      },
+      fetchAllCategory: () => {
+          dispatch(actionFetchCategoryRequest());
+      },
+  }
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(appStyle)(Dashboard));
+

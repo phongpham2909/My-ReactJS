@@ -8,10 +8,6 @@ import GridContainer from "../../../components/Dashboard/Grid/GridContainer";
 import GridItem from "../../../components/Dashboard/Grid/GridItem";
 import Card from "../../../components/Dashboard/Card/Card";
 import CardHeader from "../../../components/Dashboard/Card/CardHeader";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
 // material-ui icons
 import Add from "@material-ui/icons/Add";
 // jss styles
@@ -19,7 +15,7 @@ import styles from "../../../assets/jss/material-dashboard-pro-react/views/Produ
 import ProductTable from "./Sections/ProductTable";
 // connect redux
 import { connect } from "react-redux";
-import { actFetchProductsRequest, actDeleteProductRequest, FILTER_TABLE_PRODUCT } from "../../../redux/actions";
+import { actDeleteProductRequest, FILTER_TABLE_PRODUCT } from "../../../redux/actions";
 import CustomInput from "../../../components/Dashboard/CustomInputs/CustomInput";
 //lodash
 import { filter } from 'lodash';
@@ -39,14 +35,11 @@ class ProductManagement extends React.Component {
       [name]: value
     });
   }
-  componentDidMount() {
-    this.props.fetchAllProducts();
-  }
   handleDelete = (id) => {
     this.props.deleteProduct(id);
   }
   render() {
-    var { products, SearchProduct, ProductFilterTable, classes } = this.props;
+    var { products, SearchProduct, ProductFilterTable } = this.props;
     //Điều kiện Filter Table
     if (ProductFilterTable.name) {
       //use lodash
@@ -68,13 +61,14 @@ class ProductManagement extends React.Component {
             <CardHeader>
               <GridContainer>
                 <GridItem md={3} xs={12}>
-                  <Link to="/dashboard/product-management/new-product">
+                  <Link to="/administration/new-product">
                     <Button color="primary" default>
                       <Add /> Add New Product
                     </Button>
                   </Link>
                 </GridItem>
-                <GridItem md={4} xs={12}>
+                <GridItem xs={1}/>
+                <GridItem md={4} xs={10}>
                   <CustomInput
                     labelText="Search..."
                     formControlProps={{
@@ -89,60 +83,7 @@ class ProductManagement extends React.Component {
                     }}
                   />                  
                 </GridItem>
-                <GridItem md={2} xs={6} style={{margin : -13}}>
-                  <FormControl
-                    fullWidth
-                    className={classes.selectFormControl}
-                  >
-                    <InputLabel
-                      htmlFor="simple-select"
-                      className={classes.selectLabel}
-                    >
-                      Select a colum
-                    </InputLabel>
-                    <Select
-                      MenuProps={{
-                        className: classes.selectMenu
-                      }}
-                      classes={{
-                        select: classes.select
-                      }}
-                      value={""}
-                      onChange={this.handleSimple}
-                      inputProps={{
-                        name: "simpleSelect",
-                        id: "simple-select"
-                      }}
-                    >
-                      <MenuItem
-                        classes={{
-                          root: classes.selectMenuItem,
-                          selected: classes.selectMenuItemSelected
-                        }}
-                      >
-                        Name
-                      </MenuItem>
-                      <MenuItem
-                        classes={{
-                          root: classes.selectMenuItem,
-                          selected: classes.selectMenuItemSelected
-                        }}
-                        value="2"
-                      >
-                        Category
-                      </MenuItem>
-                      <MenuItem
-                        classes={{
-                          root: classes.selectMenuItem,
-                          selected: classes.selectMenuItemSelected
-                        }}
-                        value="3"
-                      >
-                      Price
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                  </GridItem>
+                <GridItem xs={1}/>
               </GridContainer>
             </CardHeader>
             <ProductTable
@@ -156,16 +97,13 @@ class ProductManagement extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    products: state.products,
+    products: state.products, // this.props.products
     SearchProduct: state.SearchProduct,
     ProductFilterTable: state.productFilterTable,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllProducts: () => {
-      dispatch(actFetchProductsRequest());
-    },
     deleteProduct: (id) => {
       dispatch(actDeleteProductRequest(id));
     },

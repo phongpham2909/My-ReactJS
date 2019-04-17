@@ -52,7 +52,7 @@ const registerPageStyle = {
     margin: "0 12px"
   },
   checkboxLabelControl: {
-    margin: "0"
+    margin: "20px 0"
   },
   checkboxLabel: {
     marginLeft: "6px",

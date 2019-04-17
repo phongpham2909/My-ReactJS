@@ -31,34 +31,34 @@ function Footer({ ...props }) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a href="#home" className={block}>
-                {rtlActive ? "الصفحة الرئيسية" : "Home"}
+              <a href="/" className={block}>
+                {rtlActive ? "Trang Chủ" : "Home"}
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#company" className={block}>
-                {rtlActive ? "شركة" : "Company"}
+              <a href="/products-page" className={block}>
+                {rtlActive ? "Sản Phẩm" : "Product"}
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#portfolio" className={block}>
-                {rtlActive ? "بعدسة" : "Portfolio"}
+              <a href="/about-page" className={block}>
+                {rtlActive ? "Giới Thiệu" : "About"}
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#blog" className={block}>
-                {rtlActive ? "مدونة" : "Blog"}
+              <a href="/blog-posts-page" className={block}>
+                {rtlActive ? "Bài Viết" : "Blog"}
               </a>
             </ListItem>
           </List>
         </div>
         <p className={classes.right}>
           &copy; {1900 + new Date().getYear()}{" "}
-          <a href="https://www.creative-tim.com" className={anchor}>
-            {rtlActive ? "توقيت الإبداعية" : "Creative Tim"}
+          <a href="https://www.facebook.com/phong2140051" className={anchor}>
+            {rtlActive ? "Phong Phạm" : "PhongPham"}
           </a>
           {rtlActive
-            ? ", مصنوعة مع الحب لشبكة الإنترنت أفضل"
+            ? ", Phát triển với tất cả niềm đam mê với web"
             : ", made with love for a better web"}
         </p>
       </div>

@@ -6,12 +6,14 @@ import {
   mainRaised,
   mrAuto,
   mlAuto
-} from "assets/jss/material-kit-pro-react.jsx";
+} from "../../material-kit-pro-react";
 
-import buttonGroup from "assets/jss/material-kit-pro-react/buttonGroupStyle.jsx";
-import tooltips from "assets/jss/material-kit-pro-react/tooltipsStyle.jsx";
+import buttonGroup from "../buttonGroupStyle";
+import tooltips from "../tooltipsStyle";
+import TableStyle from "../components/tableStyle";
 
 const styles = {
+  TableStyle,
   main,
   mainRaised,
   mrAuto,
@@ -28,6 +30,44 @@ const styles = {
     "&, & + h4": {
       color: "#fff"
     }
+  },
+  tableResponsive: {
+    marginTop: "50px",
+    minHeight: "0.1%",
+    overflowX: "auto",
+  },
+  table: {
+    marginBottom: "0",
+    width: "100%",
+    maxWidth: "100%",
+    backgroundColor: "transparent",
+    borderSpacing: "0",
+    borderCollapse: "collapse",
+    overflow: "auto",
+    "& > tbody > tr, & > thead > tr": {
+      height: "auto"
+    }
+  },
+  tableCellAmount: {
+  fontSize: "24px",
+  fontWeight: "400",
+  marginTop: "5px",
+  textAlign: "right"
+  },
+  tableCellTotal: {
+    fontWeight: "500",
+    fontSize: "1.0625rem",
+    paddingTop: "20px",
+    textAlign: "right"
+  },
+  customBorderBottom: {
+    borderBottom: "0px solid #000 !important",
+    paddingTop: "30px",
+    paddingBottom: "30px"
+  },
+  customBorderBottom1: {
+    borderBottom: "0px solid #000 !important",
+    paddingBottom: "30px"
   },
   block: {
     color: "inherit",
@@ -66,7 +106,7 @@ const styles = {
     position: "relative"
   },
   imgContainer: {
-    width: "120px",
+    width: "100px",
     maxHeight: "160px",
     overflow: "hidden",
     display: "block",
@@ -78,9 +118,9 @@ const styles = {
     maxWidth: "150px"
   },
   tdName: {
-    minWidth: "200px",
-    fontWeight: "400",
-    fontSize: "1.5em"
+    minWidth: "100px",
+    fontWeight: "500",
+    fontSize: "1.2em"
   },
   tdNameAnchor: {
     color: "#3C4858"
@@ -92,7 +132,7 @@ const styles = {
   },
   tdNumber: {
     textAlign: "right",
-    minWidth: "150px",
+    minWidth: "100px",
     fontWeight: "300",
     fontSize: "1.125em !important"
   },
@@ -106,7 +146,8 @@ const styles = {
     }
   },
   customFont: {
-    fontSize: "16px !important"
+    fontSize: "16px !important",
+    fontWeight: "500",
   },
   actionButton: {
     margin: "0px",
@@ -117,12 +158,29 @@ const styles = {
   },
   textRight: {
     textAlign: "right"
+  },
+  textLeft: {
+    textAlign: "left"
+  },
+  textFloatLeft:{
+    float: "right"
+  },
+  customPadding: {
+    padding: "10px !important"
+  },
+  customPadding1: {
+    padding: "40px",
+    marginTop: "-20px"
+  },
+  paddingNone: {
+    padding: "0px !important"
+  },
+  customBackground: {
+    backgroundColor: "#f7f7f7"
+  },
+  customMrg: {
+    marginTop: "50px !important"
   }
 };
 
 export default styles;
-
-
-
-// WEBPACK FOOTER //
-// ./src/assets/jss/material-kit-pro-react/views/shoppingCartStyle.jsx

@@ -12,8 +12,12 @@ import CardBody from "../../../../components/Dashboard/Card/CardBody";
 import CardFooter from "../../../../components/Dashboard/Card/CardFooter";
 // core components material
 import FormLabel from "@material-ui/core/FormLabel";
+import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 // icons material
 import Check from "@material-ui/icons/Check";
 import Save from "@material-ui/icons/Save";
@@ -33,21 +37,13 @@ class CardActionForm extends Component {
       txtColor: "",
       txtImage: "",
       txtPrice: "",
+      categoryID: "",
       txtQuantity: "",
       txtDescription: "",
       ckbStatus: true
     };
   }
   componentWillMount() {
-    const { productEditing } = this.props;
-    if (productEditing.productStatus === null || productEditing.productStatus !== -1) {
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
-  componentDidMount() {
     var { match } = this.props;
     if (match) {
       var id = match.params.id;
@@ -60,12 +56,12 @@ class CardActionForm extends Component {
       this.setState({
         id: productEditing.productID,
         txtName: productEditing.productName,
-        txtImage: productEditing.productImage,
+        txtImage: productEditing.productImageOfficial,
         txtPrice: productEditing.productPrice,
         txtQuantity: productEditing.productQuantity,
-        txtColor: productEditing.productColor,
+        categoryID: productEditing.categoryID,
         txtDescription: productEditing.productDescription,
-        ckbStatus: productEditing.productStatus
+        ckbStatus: ((productEditing.productStatus === 1) ? true : false)
       });
     }
   }
@@ -82,15 +78,15 @@ class CardActionForm extends Component {
   }
   handleSave = (event) => {
     event.preventDefault();
-    const { id, txtName, txtPrice, txtQuantity, txtImage, txtColor, txtDescription, ckbStatus } = this.state;
+    const { id, txtName, txtPrice, txtQuantity, categoryID, txtImage, txtDescription, ckbStatus } = this.state;
     const { history } = this.props;
     var product = {
       productID: id,
       productName: txtName,
-      productImage: txtImage,
+      productImageOfficial: txtImage,
       productPrice: txtPrice,
       productQuantity: txtQuantity,
-      productColor: txtColor,
+      categoryID: categoryID,
       productDescription: txtDescription,
       productStatus: ckbStatus
     }
@@ -103,8 +99,8 @@ class CardActionForm extends Component {
     }
   }
   render() {
-    const { txtName, txtImage, txtPrice, txtQuantity, txtColor, txtDescription, ckbStatus } = this.state;
-    const { classes } = this.props;
+    const { txtName, txtImage, txtPrice, txtQuantity, categoryID, txtColor, txtDescription, ckbStatus } = this.state;
+    const { classes, categories } = this.props;
     return (
       <CardBody>
         <form onSubmit={this.handleSave}>
@@ -183,6 +179,45 @@ class CardActionForm extends Component {
                     }}
                     helpText="Enter your quantity here."
                   />
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={3}>
+                  <FormLabel className={classes.labelHorizontal}>Category</FormLabel>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={9} >
+                  <FormControl
+                    fullWidth
+                    className={classes.selectFormControl}
+                  >
+                    <Select
+                      MenuProps={{
+                        className: classes.selectMenu
+                      }}
+                      classes={{
+                        select: classes.select
+                      }}
+                      inputProps={{
+                        name: "categoryID",
+                        value: categoryID ? categoryID : '',
+                        onChange: this.handleChange
+                      }}>
+                      {categories.map(item => {
+                        return (
+                          <MenuItem
+                            classes={{
+                              root: classes.selectMenuItem,
+                              selected: classes.selectMenuItemSelected
+                            }}
+                            key={item.categoryID}
+                            value={item.categoryID ? item.categoryID : ''}>
+                            {item.categoryName}
+                          </MenuItem>
+                        )
+                      })}
+                    </Select>
+                    <FormHelperText>Choose a category.</FormHelperText>
+                  </FormControl>
                 </GridItem>
               </GridContainer>
               <GridContainer>
@@ -277,7 +312,7 @@ class CardActionForm extends Component {
                 <Save /> Save
               </Button>
 
-              <Link to="/dashboard/product-management/view-products">
+              <Link to="/administration/products-management">
                 <Button color="danger">
                   <Cancel /> Cancel
                 </Button>
@@ -291,7 +326,8 @@ class CardActionForm extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    productEditing: state.productEditing
+    productEditing: state.productEditing,
+    categories: state.categories
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -304,7 +340,8 @@ const mapDispatchToProps = (dispatch) => {
     },
     actUpdateProduct: (product) => {
       dispatch(actUpdateProductRequest(product));
-    }
+    },
+   
   };
 };
 CardActionForm.propTypes = {

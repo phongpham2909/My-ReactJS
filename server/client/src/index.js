@@ -11,6 +11,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import './assets/css/material-dashboard-pro-react.css?v=1.4.0';
+import 'react-toastify/dist/ReactToastify.css';
+import "react-image-gallery/styles/css/image-gallery-no-icon.css";
 
 const store = createStore(
     myReducer,

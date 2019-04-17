@@ -6,14 +6,23 @@ import {
   mainRaised,
   title,
   cardTitle,
+  grayColor,
   roseColor
-} from "assets/jss/material-kit-pro-react.jsx";
+} from "../../material-kit-pro-react";
 
-import tooltipsStyle from "assets/jss/material-kit-pro-react/tooltipsStyle.jsx";
-import imagesStyles from "assets/jss/material-kit-pro-react/imagesStyles.jsx";
-import customSelectStyle from "assets/jss/material-kit-pro-react/customSelectStyle.jsx";
+import tooltipsStyle from "../tooltipsStyle";
+import imagesStyles from "../imagesStyles";
+import customSelectStyle from "../customSelectStyle";
 
-const productStyle = {
+const productStyle = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing.unit * 4,
+  },
   mlAuto,
   main,
   ...imagesStyles,
@@ -35,7 +44,7 @@ const productStyle = {
     marginBottom: 0
   },
   sectionGray: {
-    background: "#e5e5e5"
+    background: grayColor[14]
   },
   mainPrice: {
     margin: "10px 0px 25px"
@@ -47,14 +56,13 @@ const productStyle = {
     paddingTop: "30px"
   },
   productPage: {
-    backgroundColor: "#eee",
+    backgroundColor: grayColor[2],
     "& $mainRaised": {
       margin: "-40vh 0 0",
       padding: "40px"
     },
     "& .image-gallery-slide img": {
       borderRadius: "3px",
-      maxWidth: "300px",
       height: "auto"
     },
     "& .image-gallery-swipe": {
@@ -67,7 +75,7 @@ const productStyle = {
     "& .image-gallery-thumbnails > .image-gallery-thumbnails-container a": {
       "&.active > div": {
         opacity: "1",
-        borderColor: "#DDDDDD"
+        borderColor: grayColor[6]
       },
       "& > div": {
         width: "80%",
@@ -122,10 +130,10 @@ const productStyle = {
   },
   cardDescription: {
     textAlign: "center",
-    color: "#999"
+    color: grayColor[0]
   },
   textRose: {
-    color: roseColor
+    color: roseColor[0]
   },
   justifyContentBetween: {
     justifyContent: "space-between!important"
@@ -186,11 +194,6 @@ const productStyle = {
     height: "18px",
     position: "relative"
   }
-};
+});
 
 export default productStyle;
-
-
-
-// WEBPACK FOOTER //
-// ./src/assets/jss/material-kit-pro-react/views/productStyle.jsx

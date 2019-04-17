@@ -4,19 +4,21 @@ import BlogPostsPage from "../views/Pages/BlogPostsPage/BlogPostsPage";
 import ContactUsPage from "../views/Pages/ContactPage/ContactUsPage";
 import LoginPage from "../views/Pages/LoginPage/LoginPage";
 import RegisterPage from "../views/Pages/RegisterPage/RegisterPage";
+import CartContainer from "../redux/containers/CartContainer";
 
 // @material-ui/icons
 import Store from "@material-ui/icons/Store";
 import Info from "@material-ui/icons/Info";
 import ViewQuilt from "@material-ui/icons/ViewQuilt";
 import LocationOn from "@material-ui/icons/LocationOn";
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
 
 const navMenuRoutes = [
     {
         path: "/about-page",
         name: "About Page",
         short: "About",
-        mini: "RP",
+        mini: "AP",
         icon: Info,
         component: AboutUsPage
     },
@@ -24,15 +26,15 @@ const navMenuRoutes = [
         path: "/products-page",
         name: "Products Page",
         short: "Products",
-        mini: "RP",
+        mini: "PP",
         icon: Store,
         component: ProductsPage
     },
     {
         path: "/blog-posts-page",
         name: "Blog Posts Page",
-        short: "Blog Posts",
-        mini: "RP",
+        short: "Blog",
+        mini: "BP",
         icon: ViewQuilt,
         component: BlogPostsPage
     },
@@ -40,29 +42,58 @@ const navMenuRoutes = [
         path: "/contact-page",
         name: "Contact Page",
         short: "Contact",
-        mini: "RP",
+        mini: "CP",
         icon: LocationOn,
         component: ContactUsPage
     },
+    {
+        path: "/cart",
+        name: "Shopping Cart",
+        short: "Cart",
+        mini: "SC",
+        icon: ShoppingCart,
+        component: CartContainer
+    },
+
 ];
 
 const navDropdownMenuRoutes = [
     {
-        path: "/admin/login-page",
-        name: "Login Page",
+        path: "/user/sign-in",
+        name: "Login",
         short: "Login",
         mini: "LP",
         icon: "fingerprint",
         component: LoginPage
     },
     {
-        path: "/admin/register-page",
-        name: "Register Page",
+        path: "/user/sign-up",
+        name: "Register",
         short: "Register",
         mini: "RP",
         icon: "person_add",
         component: RegisterPage
     },
 ];
+const navDropdownUserRoutes = [
+    {
+        logout: false,
+        path: "/user/profile",
+        name: "Profile",
+        short: "Profile",
+        mini: "LP",
+        icon: "face",
+        component: LoginPage
+    },
+    {
+        logout: false,
+        path: "/user/check-order",
+        name: "Check Order",
+        short: "Check Order",
+        mini: "CO",
+        icon: "shopping_cart",
+        component: RegisterPage
+    }
+];
 
-export default { navMenuRoutes, navDropdownMenuRoutes };
+export default { navMenuRoutes, navDropdownMenuRoutes, navDropdownUserRoutes };

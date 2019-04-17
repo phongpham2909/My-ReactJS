@@ -2,76 +2,143 @@ import React from 'react';
 import Dashboard from '../views/Dashboard/Dashboard/Dashboard';
 import Calendar from '../views/Dashboard/Calendar/Calendar';
 import ProductManagement from '../views/Dashboard/Products/ProductManagement';
-import CategoryMangement from '../views/Dashboard/Category/CategoryManagement';
+import CategoryContainer from '../redux/containers/Dashboard/CategoryContainer';
 import ProductActionForm from '../views/Dashboard/Products/ProductActionForm';
+import CategoryAddFormContainer from '../redux/containers/Dashboard/CategoryAddFormContainer';
+import ProfileContainer from '../redux/containers/Dashboard/ProfileContainer';
+import OrderDetailContainer from '../redux/containers/Dashboard/OrderDetailContainer';
+import OrderPageContainer from '../redux/containers/Dashboard/OrderContainer';
+import SizeCategoryContainer from '../redux/containers/Dashboard/SizeCategoryContainer';
+import SizeCategoryAddformContainer from '../redux/containers/Dashboard/SizeCategoryAddFormContainer';
 
 // @material-ui/icons
-import DashboardIcon from "@material-ui/icons/Dashboard";
+import DashboardIconOutlined from "@material-ui/icons/DashboardOutlined";
 import DateRange from "@material-ui/icons/DateRange";
-import ShoppingCart from "@material-ui/icons/ShoppingCart";
-import Category from "@material-ui/icons/Category";
+import ShoppingCartOutlined from "@material-ui/icons/ShoppingCartOutlined";
+import ShoppingBasketOutlined from "@material-ui/icons/ShoppingBasketOutlined"
+import CategoryOutlined from "@material-ui/icons/CategoryOutlined";
+import ColorLensOutlined from "@material-ui/icons/ColorLensOutlined";
+import ListAltOutlined from "@material-ui/icons/ListAltOutlined";
+import DragIndicatorOutlined from "@material-ui/icons/DragIndicatorOutlined";
 
 var dashRoutes = [
   {
-    path: "/dashboard/dashboard",
+    path: "/administration/dashboard",
     name: "Dashboard",
     exact: true,
-    icon: DashboardIcon,
-    component: () => <Dashboard/>
+    icon: DashboardIconOutlined,
+    component: () => <Dashboard />
   },
   {
-    path: "/dashboard/product-management",
-    name: "Product",
+    path: "/administration/profile/:id",
+    name: "Dashboard",
     exact: false,
-    icon: ShoppingCart,
-    state: "openComponents",
-    component: () => <ProductManagement/>,
-    views: [
-      {
-          path: "/dashboard/product-management/new-product",
-          name: "New Product",
-          exact: false,
-          show: true,
-          component: ({history}) => <ProductActionForm history={history}/>
-      },
-      {
-        path: "/dashboard/product-management/view-products",
-        name: "Products",
-        exact: false,
-        show: true,
-        component: () => <ProductManagement/>,
-    },
-  ]
+    show: true,
+    icon: DashboardIconOutlined,
+    component: ({ match, history }) => <ProfileContainer match={match} history={history} />
   },
   {
-    path: "/dashboard/product-management/new-product",
+    path: "/administration/products-management",
+    name: "Products",
+    exact: false,
+    icon: ShoppingCartOutlined,
+    state: "openComponents",
+    component: () => <ProductManagement />
+  },
+  {
+    path: "/administration/orders",
+    name: "Orders",
+    exact: false,
+    icon: ShoppingBasketOutlined,
+    state: "openComponents",
+    component: () => <OrderPageContainer />
+  },
+  {
+    path: "/administration/order/:id",
+    name: "Orders",
+    exact: false,
+    show: true,
+    component: () => <OrderDetailContainer />
+  },
+  {
+    path: "/administration/new-product",
     name: "New Product",
     exact: false,
     show: true,
-    component: ({history}) => <ProductActionForm history={history}/>
+    component: ({ history }) => <ProductActionForm history={history} />
   },
   {
-    path: "/dashboard/product-management/:id/edit",
+    path: "/administration/:id/edit",
     name: "Edit Product",
     exact: false,
     show: true,
-    component: ({match, history}) => <ProductActionForm match={match} history={history}/>
+    component: ({ match, history }) => <ProductActionForm match={match} history={history} />
   },
   {
-    path: "/dashboard/category-management",
-    name: "Category",
+    collapse: true,
+    name: "Categories",
     exact: false,
-    icon: Category,
-    component: () => <CategoryMangement/>
+    icon: CategoryOutlined,
+    state: "pageCollapse",
+    views: [
+      {
+        path: "/administration/product-category",
+        name: "Product",
+        mini: ListAltOutlined,
+        component: () => <CategoryContainer />
+      },
+      {
+        path: "/administration/size-category",
+        name: "Size",
+        mini: DragIndicatorOutlined,
+        component: () => <SizeCategoryContainer />
+      },
+      {
+        path: "/administration/color-category",
+        name: "Color",
+        mini: ColorLensOutlined,
+        component: () => <CategoryContainer />
+      },
+    ]
+
   },
   {
-    path: "/dashboard/calendar",
+    path: "/administration/add-size-category",
+    name: "New Size Category",
+    exact: false,
+    show: true,
+    component: ({ history }) => <SizeCategoryAddformContainer history={history} />
+  },
+  {
+    path: "/administration/size/:id/edit",
+    name: "Edit Size Category",
+    exact: false,
+    show: true,
+    component: ({ match, history }) => <SizeCategoryAddformContainer match={match} history={history} />
+  },
+  {
+    path: "/administration/new-category",
+    name: "New Category",
+    exact: false,
+    show: true,
+    component: ({ history }) => <CategoryAddFormContainer history={history} />
+  },
+  {
+    path: "/administration/category/:id/edit",
+    name: "Edit Category",
+    exact: false,
+    show: true,
+    component: ({ match, history }) => <CategoryAddFormContainer match={match} history={history} />
+  },
+  {
+    path: "/administration/calendar",
     name: "Calendar",
     exact: false,
+    show: true,
     icon: DateRange,
-    component: () => <Calendar/>
+    component: () => <Calendar />
   },
-  { redirect: true, path: "/dashboard", pathTo: "/dashboard/dashboard", name: "Dashboard" }
+  { redirect: true, path: "/dashboard", pathTo: "/administration/dashboard", name: "Dashboard" }
 ]
 
 export default dashRoutes;

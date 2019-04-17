@@ -4,7 +4,7 @@ var initialState = [];
 var findIndex = (products, id) => {
   var result = -1;
   products.forEach((product, index) => {
-    if (product.productID=== id) {
+    if (product.productID === id) {
       result = index;
     }
   });
@@ -13,7 +13,7 @@ var findIndex = (products, id) => {
 
 const products = (state = initialState, action) => {
   var index = -1;
-  var { product, id} = action;
+  var { product, id } = action;
   switch (action.type) {
     case Types.FETCH_PRODUCTS:
       state = action.products;

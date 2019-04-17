@@ -18,7 +18,7 @@ class CardHeaderActionForm extends Component {
         <CardIcon color="primary">
           <LibraryBooks />
         </CardIcon>
-        <Link to="/dashboard/product-management">
+        <Link to="/administration/products-management">
           <Button color="danger" default className={classes.customCardIcon}>
             <Clear className={classes.customIcon} />
           </Button>

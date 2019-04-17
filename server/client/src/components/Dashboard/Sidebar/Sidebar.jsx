@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import PerfectScrollbar from "perfect-scrollbar";
 import { NavLink } from "react-router-dom";
 import cx from "classnames";
-
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Drawer from "@material-ui/core/Drawer";
@@ -14,14 +13,19 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Hidden from "@material-ui/core/Hidden";
 import Collapse from "@material-ui/core/Collapse";
+// @material-ui/icons
 import Icon from "@material-ui/core/Icon";
-
+import AccountCircle from "@material-ui/icons/AccountCircleOutlined";
+import Settings from "@material-ui/icons/SettingsOutlined";
+import ExitToApp from "@material-ui/icons/ExitToAppOutlined";
 // core components
 import HeaderLinks from "../Header/HeaderLinks";
 
 import sidebarStyle from "../../../assets/jss/material-dashboard-pro-react/components/sidebarStyle";
 
 import avatar from "../../../assets/img/avatar.jpg";
+import { toast } from 'react-toastify';
+import { css } from 'glamor';
 
 var ps;
 
@@ -56,7 +60,7 @@ class Sidebar extends React.Component {
     super(props);
     this.state = {
       openAvatar: false,
-      openComponents: this.activeRoute("/dashboard/product-management") !== "" ? true : false,
+      openComponents: this.activeRoute("/administration/product-management") !== "" ? true : false,
       openForms: this.activeRoute("/forms"),
       openTables: this.activeRoute("/tables"),
       openMaps: this.activeRoute("/maps"),
@@ -66,7 +70,7 @@ class Sidebar extends React.Component {
     this.activeRoute.bind(this);
   }
   // verifies if routeName is the one active (in browser input)
-  activeRoute(routeName){
+  activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
   openCollapse(collapse) {
@@ -74,7 +78,29 @@ class Sidebar extends React.Component {
     st[collapse] = !this.state[collapse];
     this.setState(st);
   }
+  handleLogOut = (event) => {
+    event.preventDefault();
+    if (localStorage.getItem('authAccount')) {
+      localStorage.removeItem('authAccount');
+      localStorage.removeItem('UserAccount');
+      setTimeout((e) => { window.location.href = "/auth/system/sign-in" }, 2000);
+      toast('Log Out Successfully!', {
+        position: toast.POSITION.TOP_RIGHT,
+        className: css({
+          background: '#43a047 !important',
+          color: '#fff !important',
+          boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3) !important',
+          borderRadius: '4px !important',
+        }),
+        progressClassName: css({
+          background: '#fff !important'
+        })
+      });
+    }
+
+  }
   render() {
+    const auth = JSON.parse(localStorage.getItem("authAccount"));
     const {
       classes,
       color,
@@ -141,7 +167,7 @@ class Sidebar extends React.Component {
               onClick={() => this.openCollapse("openAvatar")}
             >
               <ListItemText
-                primary={rtlActive ? "Phong Phạm" : "Phong Phạm"}
+                primary={rtlActive ? (auth.firstname + " " + auth.lastname) : (auth.firstname + " " + auth.lastname)}
                 secondary={
                   <b
                     className={
@@ -161,16 +187,16 @@ class Sidebar extends React.Component {
               <List className={classes.list + " " + classes.collapseList}>
                 <ListItem className={classes.collapseItem}>
                   <NavLink
-                    to="#"
+                    to={`/administration/profile/${auth.administrationID}`}
                     className={
                       classes.itemLink + " " + classes.userCollapseLinks
                     }
                   >
                     <span className={collapseItemMini}>
-                      {rtlActive ? "مع" : "MP"}
+                      {rtlActive ? "مع" : <AccountCircle></AccountCircle>}
                     </span>
                     <ListItemText
-                      primary={rtlActive ? "ملفي" : "My Profile"}
+                      primary={rtlActive ? "Thông tin cá nhân" : "My Profile"}
                       disableTypography={true}
                       className={collapseItemText}
                     />
@@ -184,29 +210,30 @@ class Sidebar extends React.Component {
                     }
                   >
                     <span className={collapseItemMini}>
-                      {rtlActive ? "هوع" : "EP"}
+                      {rtlActive ? "ST" : <Settings></Settings>}
                     </span>
                     <ListItemText
                       primary={
-                        rtlActive ? "تعديل الملف الشخصي" : "Edit Profile"
+                        rtlActive ? "Cài Đặt" : "Setting"
                       }
                       disableTypography={true}
                       className={collapseItemText}
                     />
                   </NavLink>
                 </ListItem>
-                <ListItem className={classes.collapseItem}>
+                <ListItem className={classes.collapseItem} onClick={this.handleLogOut}>
                   <NavLink
                     to="#"
                     className={
                       classes.itemLink + " " + classes.userCollapseLinks
                     }
+
                   >
                     <span className={collapseItemMini}>
-                      {rtlActive ? "و" : "S"}
+                      {rtlActive ? "L" : <ExitToApp></ExitToApp>}
                     </span>
                     <ListItemText
-                      primary={rtlActive ? "إعدادات" : "Settings"}
+                      primary={rtlActive ? "Đăng Xuất" : "Log Out"}
                       disableTypography={true}
                       className={collapseItemText}
                     />
@@ -224,7 +251,7 @@ class Sidebar extends React.Component {
           if (prop.redirect) {
             return null;
           }
-          if(prop.show){
+          if (prop.show) {
             return null;
           }
           if (prop.collapse) {
@@ -277,8 +304,8 @@ class Sidebar extends React.Component {
                     {typeof prop.icon === "string" ? (
                       <Icon>{prop.icon}</Icon>
                     ) : (
-                      <prop.icon />
-                    )}
+                        <prop.icon />
+                      )}
                   </ListItemIcon>
                   <ListItemText
                     primary={prop.name}
@@ -295,7 +322,7 @@ class Sidebar extends React.Component {
                     className={itemText}
                   />
                 </NavLink>
-                <Collapse in={this.state[prop.state]} unmountOnExit>
+                <Collapse in={this.state[prop.state]} unmountOnExit style={{marginLeft: 20, paddingRight: 20}}>
                   <List className={classes.list + " " + classes.collapseList}>
                     {prop.views.map((prop, key) => {
                       if (prop.redirect) {
@@ -316,9 +343,11 @@ class Sidebar extends React.Component {
                       return (
                         <ListItem key={key} className={classes.collapseItem}>
                           <NavLink to={prop.path} className={navLinkClasses}>
-                            <span className={collapseItemMini}>
-                              {prop.mini}
-                            </span>
+                            {typeof prop.icon === "string" ? (
+                              <span className={collapseItemMini}><Icon>{prop.mini}</Icon></span>
+                            ) : (
+                                <span className={collapseItemMini}><prop.mini /></span>
+                              )}
                             <ListItemText
                               primary={prop.name}
                               disableTypography={true}
@@ -362,8 +391,8 @@ class Sidebar extends React.Component {
                   {typeof prop.icon === "string" ? (
                     <Icon>{prop.icon}</Icon>
                   ) : (
-                    <prop.icon />
-                  )}
+                      <prop.icon />
+                    )}
                 </ListItemIcon>
                 <ListItemText
                   primary={prop.name}

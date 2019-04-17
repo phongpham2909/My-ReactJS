@@ -14,6 +14,7 @@ const lockScreenPageStyle = theme => ({
   },
   customCardClass: {
     width: "240px",
+    padding: "20px",
     margin: "60px auto 0",
     color: "#FFFFFF",
     display: "block",

@@ -4,7 +4,10 @@ import {
   cardTitle,
   coloredShadow,
   mlAuto,
-  mrAuto
+  mrAuto,
+  hexToRgb,
+  grayColor,
+  defaultFont,
 } from "../../../material-kit-pro-react";
 
 import customCheckboxRadioSwitch from "../../customCheckboxRadioSwitchStyle";
@@ -21,6 +24,9 @@ const styles = {
     ...cardTitle,
     textAlign: "center",
     marginBottom: "0px !important"
+  },
+  customFont: {
+    fontSize: "14px"
   },
   cardDescription: {
     color: "#999",
@@ -40,8 +46,15 @@ const styles = {
     display: "inline-flex"
   },
   price: {
-    fontSize: "18px",
+    fontSize: "14px",
     color: "#9a9a9a"
+  },
+  priceOld: {
+    fontSize: "14px",
+    textDecoration: "line-through"
+  },
+  priceNew: {
+    color: "#f44336"
   },
   pullRight: {
     float: "right"
@@ -86,6 +99,59 @@ const styles = {
   },
   textLeft: {
     textAlign: "left"
+  },
+  collapseItemLink: {
+    transition: "all 300ms linear",
+    margin: "0 15px",
+    borderRadius: "3px",
+    position: "relative",
+    display: "block",
+    padding: "10px",
+    backgroundColor: "transparent",
+    ...defaultFont,
+    width: "auto",
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "rgba(" + hexToRgb(grayColor[17]) + ", 0.2)",
+      boxShadow: "none"
+    },
+    "&,&:hover,&:focus": {
+      color: "inherit"
+    }
+  },
+  collapseItemMini: {
+    color: "inherit",
+    ...defaultFont,
+    textTransform: "uppercase",
+    width: "30px",
+    marginRight: "15px",
+    textAlign: "center",
+    letterSpacing: "1px",
+    position: "relative",
+    float: "left",
+    display: "inherit",
+    transition: "transform 300ms ease 0s, opacity 300ms ease 0s",
+    fontSize: "14px"
+  },
+  collapseItemMiniRTL: {
+    float: "right",
+    marginLeft: "30px",
+    marginRight: "1px"
+  },
+  pagination: {
+    display: "flex",
+    paddingLeft: "0",
+    listStyle: "none",
+    borderRadius: "0.25rem"
+  },
+  paginationItem: {
+    display: "inline"
+  },
+  customNavLink: {
+    padding: "3px 55px",
+    paddingLeft: "0px !important"
+
+
   }
 };
 

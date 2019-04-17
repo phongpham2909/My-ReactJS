@@ -2,7 +2,9 @@ import {
   defaultFont,
   container,
   containerFluid,
-  primaryColor
+  primaryColor,
+  whiteColor,
+  grayColor
 } from "../../material-dashboard-pro-react";
 
 const footerStyle = {
@@ -19,7 +21,7 @@ const footerStyle = {
   },
   footer: {
     bottom: "0",
-    borderTop: "1px solid #e7e7e7",
+    borderTop: "1px solid " + grayColor[15],
     padding: "15px 0",
     ...defaultFont,
     zIndex: 4
@@ -35,7 +37,7 @@ const footerStyle = {
     position: "relative"
   },
   a: {
-    color: primaryColor,
+    color: primaryColor[0],
     textDecoration: "none",
     backgroundColor: "transparent"
   },
@@ -51,7 +53,7 @@ const footerStyle = {
   },
   whiteColor: {
     "&,&:hover,&:focus": {
-      color: "#FFFFFF"
+      color: whiteColor
     }
   }
 };

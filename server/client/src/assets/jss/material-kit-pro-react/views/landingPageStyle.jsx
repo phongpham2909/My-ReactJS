@@ -1,23 +1,36 @@
 import {
   container,
+  section,
   title,
+  mlAuto,
+  mrAuto,
   main,
   mainRaised
 } from "../../material-kit-pro-react";
 
 const landingPageStyle = {
+  mlAuto,
+  mrAuto,
+  title,
+  textCenter: {
+    textAlign: "center"
+  },
+  section: {
+    ...section,
+    padding: "50px 0px"
+  },
   container: {
     color: "#FFFFFF",
     ...container,
     zIndex: "2"
   },
-  title: {
+  title1: {
     ...title,
     display: "inline-block",
     position: "relative",
     marginTop: "30px",
     minHeight: "32px",
-    color: "#FFFFFF",
+    color: "#fff",
     textDecoration: "none"
   },
   subtitle: {

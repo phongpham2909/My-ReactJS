@@ -45,6 +45,9 @@ const styles = {
   },
   textCenter: {
     textAlign: "center"
+  },
+  customFont: {
+    fontSize: "1em"
   }
 };
 

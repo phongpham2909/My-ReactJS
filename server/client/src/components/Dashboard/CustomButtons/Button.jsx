@@ -69,7 +69,7 @@ RegularButton.propTypes = {
     "reddit",
     "transparent"
   ]),
-  size: PropTypes.oneOf(["sm", "lg"]),
+  size: PropTypes.oneOf(["sm","md","lg"]),
   simple: PropTypes.bool,
   round: PropTypes.bool,
   fullWidth: PropTypes.bool,
