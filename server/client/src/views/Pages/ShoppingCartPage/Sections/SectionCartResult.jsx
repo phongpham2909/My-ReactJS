@@ -16,7 +16,7 @@ class SectionCartResult extends Component {
     var total = 0;
     if (cart.length > 0) {
       for (let i = 0; i < cart.length; i++) {
-        total += cart[i].product.productPrice * cart[i].quantity;
+        total += (cart[i].product.productPrice - (cart[i].product.productPrice * cart[i].product.productSale / 100)) * cart[i].quantity;
       }
     }
     return this.props.format_curency(total);
@@ -34,9 +34,9 @@ class SectionCartResult extends Component {
               </h4>
               <Link to="/cart/checkout">
                 <Button color="primary" round onClick={handleShowCheckout}>
-                  {"Complete Checkout"} <KeyboardArrowRight />
+                  {"Continue"} <KeyboardArrowRight />
                 </Button>
-                </Link>
+              </Link>
             </GridItem>
           </GridContainer>
         </CardBody>

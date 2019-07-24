@@ -52,6 +52,9 @@ const styles = {
     mr1: {
         marginLeft: "-25px"
     },
+    customPadding: {
+        padding: "20px 0"
+      }
 }
 
 export default styles;

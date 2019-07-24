@@ -1,3 +1,5 @@
+import { grayColor } from "../../material-dashboard-pro-react";
+
 const headingStyle = {
   heading: {
     marginBottom: "30px"
@@ -13,7 +15,7 @@ const headingStyle = {
   },
   title: {
     marginTop: "10px",
-    color: "#3C4858",
+    color: grayColor[2],
     textDecoration: "none"
   },
   category: {

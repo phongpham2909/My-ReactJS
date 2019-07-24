@@ -6,6 +6,7 @@ module.exports = function (app) {
   var categoryCtrl = require('../controllers/CategoryController');
   var sizeCategoryCtrl = require('../controllers/SizeCategoryController');
   var checkoutCtrl = require('../controllers/CheckoutController');
+  var orderCtrl = require('../controllers/OrdersController');
 
   // todoList Routes
   app.route('/api/products')
@@ -68,4 +69,10 @@ module.exports = function (app) {
   // Order Table Admin
   app.route('/api/get-all-orders')
     .get(checkoutCtrl.GET_ALL_ORDERS);
+  app.route('/api/get-order-detail/:id')
+    .get(checkoutCtrl.GET_ORDER_DETAIL_BY_ID);
+    app.route('/api/get-order/:id')
+    .get(checkoutCtrl.GET_ORDER_BY_ID);
+  app.route('/api/get-orders-customer/:id')
+    .get(orderCtrl.FETCH_ALL_ORDERS_CUSTOMER);
 };

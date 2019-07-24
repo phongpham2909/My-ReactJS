@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 // @material-ui/core components
 import { withStyles } from "@material-ui/core/styles";
 import TableHead from "@material-ui/core/TableHead";
@@ -17,11 +18,11 @@ class SectionTableHead extends Component {
             rows: [
                 { id: 'orderID', numeric: true, disablePadding: false, label: 'ID' },
                 { id: 'orderReference', numeric: true, disablePadding: false, label: 'Reference' },
-                { id: 'customerName', numeric: true, disablePadding: false, label: 'Customer' },
+                { id: 'orderCustomerName', numeric: true, disablePadding: false, label: 'Customer' },
                 { id: 'orderTotalAmount', numeric: true, disablePadding: false, label: 'Total' },
-                { id: 'paymentTyper', numeric: true, disablePadding: false, label: 'Payment' },
+                { id: 'paymentType', numeric: true, disablePadding: false, label: 'Payment' },
                 { id: 'orderStatusType', numeric: true, disablePadding: false, label: 'Status' },
-                { id: 'orderCreated', numeric: true, disablePadding: false, label: 'Created' }
+                { id: 'Created', numeric: true, disablePadding: false, label: 'Created' }
             ]
         }
     };
@@ -30,7 +31,7 @@ class SectionTableHead extends Component {
     };
     render() {
         var { rows } = this.state;
-        var { classes } = this.props;
+        var { classes, onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
         return (
             <TableHead>
                 <TableRow>
@@ -40,9 +41,9 @@ class SectionTableHead extends Component {
                                 root: classes.customCheckbox,
                                 checked: classes.checked,
                             }}
-                        //indeterminate={numSelected > 0 && numSelected < rowCount}
-                        //checked={numSelected === rowCount}
-                        //onChange={onSelectAllClick}
+                            indeterminate={numSelected > 0 && numSelected < rowCount}
+                            checked={numSelected === rowCount}
+                            onChange={onSelectAllClick}
                         />
                     </TableCell>
                     {rows.map(
@@ -51,7 +52,7 @@ class SectionTableHead extends Component {
                                 key={row.id}
                                 align={row.numeric ? 'right' : 'left'}
                                 padding={row.disablePadding ? 'none' : 'default'}
-                                //sortDirection={orderBy === row.id ? order : false}
+                                sortDirection={orderBy === row.id ? order : false}
                             >
                                 <Tooltip
                                     title="Sort"
@@ -59,11 +60,11 @@ class SectionTableHead extends Component {
                                     enterDelay={300}
                                 >
                                     <TableSortLabel
-                                        //active={orderBy === row.id}
-                                        //direction={order}
+                                        active={orderBy === row.id}
+                                        direction={order}
                                         onClick={this.createSortHandler(row.id)}
-                                    > 
-                                    {row.label}
+                                    >
+                                        {row.label}
                                     </TableSortLabel>
                                 </Tooltip>
                             </TableCell>
@@ -76,5 +77,14 @@ class SectionTableHead extends Component {
         );
     }
 }
+
+SectionTableHead.propTypes = {
+    numSelected: PropTypes.number.isRequired,
+    onRequestSort: PropTypes.func.isRequired,
+    onSelectAllClick: PropTypes.func.isRequired,
+    order: PropTypes.string.isRequired,
+    orderBy: PropTypes.string.isRequired,
+    rowCount: PropTypes.number.isRequired,
+  };
 
 export default withStyles(styles)(SectionTableHead);

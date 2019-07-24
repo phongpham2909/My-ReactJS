@@ -32,6 +32,7 @@ const appStyle = theme => ({
     overflowScrolling: "touch"
   },
   content: {
+    background: "linear-gradient(to right, #2D323E 0%, #3C4252 100%)",
     marginTop: "70px",
     padding: "30px 15px",
     minHeight: "calc(100vh - 123px)"

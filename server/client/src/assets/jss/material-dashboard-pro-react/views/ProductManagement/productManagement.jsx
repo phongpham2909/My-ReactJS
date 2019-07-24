@@ -1,4 +1,4 @@
-import { cardTitle, primaryColor, grayColor } from "../../../material-dashboard-pro-react";
+import { cardTitle, primaryColor, grayColor, blackColor } from "../../../material-dashboard-pro-react";
 import extendedFormStyle from "../extendedFormsStyle";
 import regularFormsStyle from "../regularFormsStyle";
 import customCheckboxRadioSwitch from "../../customCheckboxRadioSwitch";
@@ -17,7 +17,17 @@ const productManagementStyle = theme => ({
   },
   root: {
     width: "100%",
-    marginTop: "-20px"
+    padding: "0"
+  },
+  root2: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  root3: {
+    borderRadius: "10px",
+    flexGrow: 1,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
   },
   table: {
     minWidth: 800
@@ -29,7 +39,7 @@ const productManagementStyle = theme => ({
     padding: "5px 5px 5px 10px"
   },
   imgContainer: {
-    width: "120px",
+    width: "60px",
     maxHeight: "160px",
     overflow: "hidden",
     display: "block"
@@ -54,6 +64,14 @@ const productManagementStyle = theme => ({
     top: "-1px",
     position: "relative"
   },
+  icon1: {
+    verticalAlign: "middle",
+    width: "18px",
+    height: "18px",
+    marginRight: "5px",
+    top: "-1px",
+    position: "relative"
+  },
   tdColorSuccess: {
     color: "#fff",
     backgroundColor: "#4caf50"
@@ -71,12 +89,11 @@ const productManagementStyle = theme => ({
     borderRadius: "4px"
   },
   mr1: {
-    marginLeft: "-25px"
+    marginLeft: "-5px"
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 350
+    marginTop: "15px",
+    width: '100%'
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -100,7 +117,8 @@ const productManagementStyle = theme => ({
     lineHeight: "1.428571429",
     fontWeight: "400",
     paddingTop: "40px",
-    marginRight: "0"
+    marginRight: "0",
+    marginLeft: "20px"
   },
   justifyContentCenter: {
     justifyContent: "center"
@@ -142,7 +160,29 @@ const productManagementStyle = theme => ({
       }
     }
   },
-
+  customButton: {
+    padding: "10px 20px"
+  },
+  customTabs: {
+    borderBottom: "1px solid rgba(0, 0, 0, 0.12)"
+  },
+  cssLabel: {
+    "&$cssFocused": {
+      color: blackColor[0]  
+    }
+  },
+  cssFocused: {},
+  cssUnderline: {
+    "&:after": {
+      borderBottomColor: blackColor[0]
+    }
+  },
+  cssOutlinedInput: {
+    "&$cssFocused $notchedOutline": {
+      borderColor: blackColor[0]
+    }
+  },
+  notchedOutline: {},
 });
 
 export default productManagementStyle;

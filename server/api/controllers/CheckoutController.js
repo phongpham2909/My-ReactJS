@@ -68,13 +68,20 @@ module.exports = {
             res.json(response)
         })
     },
-    GET_ORDER_BY_ID: (req, res) => {
-        let data = req.body;
+    GET_ORDER_DETAIL_BY_ID: (req, res) => {
         let orderId = req.params.id;
-        const sqlQuery = '';
-        connection.query(sqlQuery, [data, orderId], (err, response) => {
+        const sqlQuery = 'SELECT orderdetail.orderID, products.productName,orderdetail.productPrice,orderdetail.quantity,orderdetail.productSale, size.sizeName, color.colorName, products.productImageOfficial FROM orderdetail,products,color,size WHERE orderdetail.productID = products.productID AND orderdetail.colorID = color.colorID AND orderdetail.sizeID = size.sizeID AND orderdetail.orderID = ?';
+        connection.query(sqlQuery, [orderId], (err, response) => {
             if (err) throw err
-            res.json(data)
+            res.json(response)
+        })
+    },
+    GET_ORDER_BY_ID: (req, res) => {
+        let orderId = req.params.id;
+        const sqlQuery = 'SELECT orders.orderID,orders.orderReference,orders.orderCustomerName,orders.orderTotalAmount,orders.orderNumberPhone,orders.orderAddress,orders.orderDescription,payment.paymentType, orderstatus.orderStatusType,customers.userEmail,customers.avatar,orders.orderCreated FROM orders,payment,orderstatus,customers WHERE orders.customerID = customers.customerID AND orders.paymentID = payment.paymentID AND orders.orderStatusID = orderstatus.orderStatusID AND orders.orderID = ?';
+        connection.query(sqlQuery, [orderId], (err, response) => {
+            if (err) throw err
+            res.json(response[0])
         })
     }
 }

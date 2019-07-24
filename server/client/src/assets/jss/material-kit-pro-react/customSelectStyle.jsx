@@ -68,7 +68,7 @@ const customSelectStyle = {
   selectMenuItem: {
     fontSize: "13px",
     padding: "10px 20px",
-    margin: "0 5px",
+    margin: "5px 5px",
     borderRadius: "2px",
     transition: "all 150ms linear",
     display: "block",

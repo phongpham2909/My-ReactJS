@@ -11,12 +11,7 @@ const customTabsStyle = {
   displayNone: {
     display: "none !important"
   },
-  tabsRoot: {
-    minHeight: "unset !important",
-    "& $tabRootButton": {
-      fontSize: "0.875rem"
-    }
-  },
+
   tabRootButton: {
     minHeight: "unset !important",
     minWidth: "unset !important",

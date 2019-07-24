@@ -180,7 +180,18 @@ const styles = {
   },
   customMrg: {
     marginTop: "50px !important"
-  }
+  },
+  price: {
+    fontSize: "14px",
+    color: "#9a9a9a"
+  },
+  priceOld: {
+    fontSize: "14px",
+    textDecoration: "line-through"
+  },
+  priceNew: {
+    color: "#f44336"
+  },
 };
 
 export default styles;

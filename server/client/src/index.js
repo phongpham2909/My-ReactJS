@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import indexRoutes from "./routes/index";
 //Create Store
@@ -22,14 +23,22 @@ const store = createStore(
     )
 );
 
-ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <Switch>
-                {indexRoutes.map((prop, key) => {
-                    return <Route path={prop.path} component={prop.component} key={key} />;
-                })}
-            </Switch>
-        </Router>
-    </Provider>,
-    document.getElementById('root'));
+const render = () => {
+    ReactDOM.render(
+        <Provider store={store}>
+            <Router>
+                <Switch>
+                    {indexRoutes.map((prop, key) => {
+                        return <Route path={prop.path} component={prop.component} key={key} />;
+                    })}
+                </Switch>
+            </Router>
+        </Provider>,
+        document.getElementById('root'));
+}
+window.onload = () => {
+    render();
+};
+serviceWorker.unregister();
+
+

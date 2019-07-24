@@ -9,12 +9,6 @@ module.exports = {
         var password = req.body.adminPassword;
         var sqlQuery = 'SELECT * FROM administration WHERE adminEmail = ?';
         connection.query(sqlQuery, [username], (error, results) => {
-            var  result = {
-                firstname: results[0].adminFirstName,
-                lastname: results[0].adminLastName,
-                administrationID: results[0].administrationID,
-                adminEmail: results[0].adminEmail
-            }
             if (error) {
                 res.json({  
                     status: false,
@@ -23,11 +17,17 @@ module.exports = {
             } else {
                 if (results.length > 0) {
                     decryptedString = cryptr.decrypt(results[0].adminPassword);
+                    var  data = {
+                        firstname: results[0].adminFirstName,
+                        lastname: results[0].adminLastName,
+                        administrationID: results[0].administrationID,
+                        adminEmail: results[0].adminEmail
+                    }
                     if (password == decryptedString) {
                         res.json({
                             status: true,
                             message: 'successfully authenticated',
-                            result: result,
+                            result: data,
                         })
                     } else {
                         res.json({
@@ -46,7 +46,7 @@ module.exports = {
         });
     },
     REGISTER: (req, res) => {
-        var today = new Date();
+        var today = new Date().toLocaleString();
         var sqlQuery = 'INSERT INTO administration SET ?';
         var encryptedString = cryptr.encrypt(req.body.adminPassword);
         var users = {

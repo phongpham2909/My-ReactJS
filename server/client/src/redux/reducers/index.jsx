@@ -12,24 +12,26 @@ import cart from './cart/cart';
 import message from './cart/message';
 import customers from './client/customers';
 import customer from './client/customer';
-
 // Administration
 import auth from './administration/auth';
 import adminProfile from './administration/adminProfile';
-
 // Category
 import categories from './category/categories';
 import CategoryEditing from './category/categoryEditing';
 import productsFollowCategory from './category/productsFollowCategory';
-
 // Size category
 import size from './size/size';
 import sizeEditing from './size/sizeEditing';
-
 // Order 
 import order from './cart/order';
 // Order table admin
 import orders from './orders/orders';
+import orderByID from './orders/orderByID';
+import productsOrder from './orders/productsOrder';
+import ordersCustomer from './orders/ordersCustomer';
+// Customer Dashboard
+import Customers from './customer/customers';
+import customerEditing from './customer/customerEditing';
 
 const myReducer =  combineReducers({
     // State Products
@@ -56,8 +58,14 @@ const myReducer =  combineReducers({
     sizeEditing,
     order,
     //Orders admin
-    orders
-    
+    orders,
+    orderByID,
+    productsOrder,
+    // Customer
+    ordersCustomer,
+    //Customer Dashboard
+    Customers,
+    customerEditing
 });
 
 export default myReducer

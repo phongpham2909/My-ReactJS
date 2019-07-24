@@ -30,6 +30,7 @@ import { css } from 'glamor';
 var ps;
 
 class SidebarWrapper extends React.Component {
+  
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.refs.sidebarWrapper, {
@@ -60,11 +61,7 @@ class Sidebar extends React.Component {
     super(props);
     this.state = {
       openAvatar: false,
-      openComponents: this.activeRoute("/administration/product-management") !== "" ? true : false,
-      openForms: this.activeRoute("/forms"),
-      openTables: this.activeRoute("/tables"),
-      openMaps: this.activeRoute("/maps"),
-      openPages: this.activeRoute("-page"),
+      openComponents: this.activeRoute("/administration/products-management") !== "" ? true : false,
       miniActive: true
     };
     this.activeRoute.bind(this);
@@ -81,23 +78,23 @@ class Sidebar extends React.Component {
   handleLogOut = (event) => {
     event.preventDefault();
     if (localStorage.getItem('authAccount')) {
-      localStorage.removeItem('authAccount');
-      localStorage.removeItem('UserAccount');
-      setTimeout((e) => { window.location.href = "/auth/system/sign-in" }, 2000);
-      toast('Log Out Successfully!', {
-        position: toast.POSITION.TOP_RIGHT,
-        className: css({
-          background: '#43a047 !important',
-          color: '#fff !important',
-          boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3) !important',
-          borderRadius: '4px !important',
-        }),
-        progressClassName: css({
-          background: '#fff !important'
-        })
-      });
+      if (confirm('You sure logout!')) { //eslint-disable-line
+        localStorage.removeItem('authAccount');
+        setTimeout((e) => { window.location.href = "/auth/system/sign-in" }, 0);
+        toast('Log Out Successfully!', {
+          position: toast.POSITION.TOP_RIGHT,
+          className: css({
+            background: '#43a047 !important',
+            color: '#fff !important',
+            boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3) !important',
+            borderRadius: '4px !important',
+          }),
+          progressClassName: css({
+            background: '#fff !important'
+          })
+        });
+      }
     }
-
   }
   render() {
     const auth = JSON.parse(localStorage.getItem("authAccount"));
@@ -167,7 +164,7 @@ class Sidebar extends React.Component {
               onClick={() => this.openCollapse("openAvatar")}
             >
               <ListItemText
-                primary={rtlActive ? (auth.firstname + " " + auth.lastname) : (auth.firstname + " " + auth.lastname)}
+                primary={rtlActive ? null: (auth ? (auth.firstname + " " + auth.lastname) : null)}
                 secondary={
                   <b
                     className={
@@ -322,7 +319,7 @@ class Sidebar extends React.Component {
                     className={itemText}
                   />
                 </NavLink>
-                <Collapse in={this.state[prop.state]} unmountOnExit style={{marginLeft: 20, paddingRight: 20}}>
+                <Collapse in={this.state[prop.state]} unmountOnExit style={{ marginLeft: 20, paddingRight: 20 }}>
                   <List className={classes.list + " " + classes.collapseList}>
                     {prop.views.map((prop, key) => {
                       if (prop.redirect) {

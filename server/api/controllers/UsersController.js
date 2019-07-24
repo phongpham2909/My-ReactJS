@@ -9,12 +9,6 @@ module.exports = {
         var password = req.body.password;
         var sqlQuery = 'SELECT * FROM customers WHERE userEmail = ?';
         connection.query(sqlQuery, [userEmail], (error, results) => {
-            var result = {
-                firstname: results[0].firstname,
-                lastname: results[0].lastname,
-                customerID: results[0].customerID,
-                userEmail: results[0].userEmail
-            }
             if (error) {
                 res.json({
                     status: false,
@@ -23,11 +17,17 @@ module.exports = {
             } else {
                 if (results.length > 0) {
                     decryptedString = cryptr.decrypt(results[0].password);
+                    var data = {
+                        firstname: results[0].firstname,
+                        lastname: results[0].lastname,
+                        customerID: results[0].customerID,
+                        userEmail: results[0].userEmail
+                    }
                     if (password == decryptedString) {
                         res.json({
                             status: true,
                             message: "successfully authenticated",
-                            result: result
+                            result: data
                         })
                     } else {
                         res.json({
@@ -56,7 +56,7 @@ module.exports = {
             "password": encryptedString,
             "customerCreated": today
         }
-        connection.query(sqlQuery, users, (error, results, fields) => {
+        connection.query(sqlQuery, users, (error, results) => {
             if (error) {
                 res.json({
                     status: false,
@@ -72,14 +72,14 @@ module.exports = {
         });
     },
     FETCH_ALL_CUSTOMER: (req, res) => {
-        const SELECT_ALL_CUSTOMER = 'SELECT * FROM customers';
+        const SELECT_ALL_CUSTOMER = 'SELECT customerID,userEmail, password, firstname, lastname, phoneNumber,address, DATE_FORMAT(birthday,"%d/%m/%y") AS birthday, DATE_FORMAT(customerCreated,"%m/%d/%Y, %h:%m:%s") AS Created FROM customers';
         connection.query(SELECT_ALL_CUSTOMER, (err, response) => {
             if (err) throw err
             res.json(response)
         })
     },
     FETCH_CUSTOMER_BYID: (req, res) => {
-        const SELECT_CUSTOMER_BYID = 'SELECT customerID,userEmail, password, firstname, lastname, phoneNumber,address,DATE_FORMAT(customerCreated,"%d/%m/%Y") AS Created, DATE_FORMAT(birthday,"%d/%m/%Y") AS birthday FROM customers WHERE customerID = ?';
+        const SELECT_CUSTOMER_BYID = 'SELECT customerID,userEmail, password, firstname, lastname, phoneNumber,address,DATE_FORMAT(customerCreated,"%m/%d/%y, %h:%m:%s") AS Created, DATE_FORMAT(birthday,"%m/%d/%Y") AS birthday FROM customers WHERE customerID = ?';
         let customerID = req.params.id;
         connection.query(SELECT_CUSTOMER_BYID, [customerID], (err, response) => {
             if (err) throw err

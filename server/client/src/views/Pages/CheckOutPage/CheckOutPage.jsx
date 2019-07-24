@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -40,19 +40,27 @@ class CheckOutPage extends Component {
             orderDescription: "",
             customerID: "",
             paymentID: 2,
-            orderStatusID: 2
+            orderStatusID: 2,
+            logged: false
+        }
+    }
+    componentWillMount() {
+        if (localStorage && localStorage.getItem("UserAccount")) {
+            this.setState({
+                logged: !this.state.logged
+            });
         }
     }
     showTotalAmount = (cart) => {
         var total = 0;
         if (!cart) return;
         for (var i = 0; i < cart.length; i++) {
-            total += cart[i].product.productPrice * cart[i].quantity;
+            total += (cart[i].product.productPrice - (cart[i].product.productPrice * cart[i].product.productSale / 100)) * cart[i].quantity;
         }
         return total;
     }
-    showTotalAmountItem = (price, quantity) => {
-        return this.props.format_curency(price * quantity);
+    showTotalAmountItem = (price, quantity, sale) => {
+        return this.props.format_curency((price - (price * sale / 100)) * quantity);
     }
     handleChange = (event) => {
         var target = event.target;
@@ -97,24 +105,26 @@ class CheckOutPage extends Component {
                     background: '#43a047 !important',
                     color: '#fff !important',
                     boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3) !important',
-                  }),
-                  progressClassName: css({
+                }),
+                progressClassName: css({
                     background: '#fff !important'
-                  })
-              });
-            setTimeout( (e)=>{history.push('/cart/complete-order')}, 2000);
+                })
+            });
+            setTimeout((e) => { history.push('/cart/complete-order') }, 2000);
         }
         else {
             toast.error('Error! You have not added products to the cart', {
                 position: toast.POSITION.TOP_RIGHT
-              });
+            });
             history.goBack();
         }
-
     }
     render() {
-        const { orderCustomerName, orderNumberPhone, orderAddress, orderDescription } = this.state;
+        const { orderCustomerName, orderNumberPhone, orderAddress, orderDescription, logged } = this.state;
         const { classes, cart } = this.props;
+        if (logged === false) {
+            return <Redirect to="/user/sign-in" />
+        }
         return (
             <div>
                 <ToastContainer autoClose={2000} closeButton={<CloseButtonToast />} newestOnTop />
@@ -248,7 +258,7 @@ class CheckOutPage extends Component {
                                                     </Link>
                                                 </GridItem>
                                                 <GridItem md={6} className={classes.textCenter}>
-                                                    <Button round color="primary" type="submit">Delivery to this address <KeyboardArrowRight /></Button>
+                                                    <Button round color="primary" type="submit">Complete Checkout <KeyboardArrowRight /></Button>
                                                 </GridItem>
                                             </GridContainer>
                                         </CardBody>
@@ -258,7 +268,7 @@ class CheckOutPage extends Component {
                             <GridItem md={4}>
                                 <Card className={classes.customMrg}>
                                     <CardBody className={classes.customBackground}>
-                                        <h4>Quantity Product: {cart.length}</h4>
+                                        <h4><b>Quantity Product:</b> {cart.length}</h4>
                                         {cart.map((item, index) => {
                                             return (
                                                 <GridContainer key={index}>
@@ -270,13 +280,13 @@ class CheckOutPage extends Component {
                                                     <GridItem md={8}>
                                                         <h5 className={classes.customName}>{item.product.productName}</h5>
                                                         <h5>Quantity: {item.quantity}</h5>
-                                                        <h5>Price: {this.props.format_curency(item.product.productPrice)} <small>đ</small></h5>
-                                                        <h5>Total: {this.showTotalAmountItem(item.product.productPrice, item.quantity)} <small>đ</small></h5>
+                                                        <h5>Price: {this.props.format_curency(item.product.productPrice)} <small>đ</small>(-{item.product.productSale} %) </h5>
+                                                        <h5>Total: {this.showTotalAmountItem(item.product.productPrice, item.quantity, item.product.productSale)} <small>đ</small></h5>
                                                     </GridItem>
                                                 </GridContainer>
                                             )
                                         })}
-                                        <h4>Grand Total:  {this.props.format_curency(this.showTotalAmount(cart))} <small>đ</small></h4>
+                                        <h4><b>Grand Total:</b>  {this.props.format_curency(this.showTotalAmount(cart))} <small>đ</small></h4>
                                     </CardBody>
                                 </Card>
                             </GridItem>

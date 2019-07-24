@@ -92,10 +92,10 @@ const headerLinksStyle = theme => ({
     [theme.breakpoints.up("md")]: {
       position: "absolute",
       top: "5px",
-      border: "1px solid #FFF",
+      border: "1px solid #ef5350",
       right: "5px",
       fontSize: "9px",
-      background: dangerColor,
+      background: dangerColor[1],
       color: "#FFFFFF",
       minWidth: "16px",
       height: "16px",

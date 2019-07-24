@@ -1,3 +1,4 @@
+import React from 'react';
 import LoginPage from "../views/Pages/LoginPage/LoginPage";
 import RegisterPage from "../views/Pages/RegisterPage/RegisterPage";
 
@@ -20,7 +21,7 @@ const pagesRoutes = [
     short: "Login",
     mini: "LP",
     icon: Fingerprint,
-    component: LoginPage
+    component: ({history}) => <LoginPage history={history}/>
   },
   {
     redirect: true,

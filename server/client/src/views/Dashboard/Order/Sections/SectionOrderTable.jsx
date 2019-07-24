@@ -43,7 +43,7 @@ class SectionOrderTable extends Component {
         super(props);
         this.state = {
             order: 'desc',
-            orderBy: 'customerName',
+            orderBy: 'orderID',
             page: 0,
             rowsPerPage: 5,
             selected: [],
@@ -100,7 +100,6 @@ class SectionOrderTable extends Component {
     handleOrderDetail = (event, id) => {
         event.preventDefault();
         window.location.href = `/administration/order/${id}`;
-        console.log("handle")
     }
     renderOrderStatusType(param) {
         var { classes } = this.props;
@@ -127,7 +126,14 @@ class SectionOrderTable extends Component {
             <CardBody>
                 <div className={classes.tableResponsive}>
                     <Table className={classes.table}>
-                        <SectionTableHead />
+                        <SectionTableHead 
+                         numSelected={selected.length}
+                         order={order}
+                         orderBy={orderBy}
+                         onSelectAllClick={this.handleSelectAllClick}
+                         onRequestSort={this.handleRequestSort}
+                         rowCount={orders.length}
+                        />
                         <TableBody>
                             {stableSort(orders, getSorting(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -136,7 +142,7 @@ class SectionOrderTable extends Component {
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={event => this.handleOrderDetail(event, order.orderID)}
+                                            onClick={(event) => this.handleOrderDetail(event,order.orderID)}
                                             role="checkbox"
                                             aria-checked={isSelected}
                                             tabIndex={-1}
@@ -152,7 +158,7 @@ class SectionOrderTable extends Component {
                                                     }}
                                                     checked={isSelected} />
                                             </TableCell>
-                                            <TableCell align="right">{index + 1}</TableCell>
+                                            <TableCell align="right">{order.orderID}</TableCell>
                                             <TableCell align="right">{order.orderReference}</TableCell>
                                             <TableCell align="right">{order.orderCustomerName}</TableCell>
                                             <TableCell align="right">{this.props.format_curency(order.orderTotalAmount)}đ</TableCell>

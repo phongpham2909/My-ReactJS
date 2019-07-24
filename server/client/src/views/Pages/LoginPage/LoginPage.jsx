@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ToastContainer } from 'react-toastify';
+import { Redirect } from 'react-router-dom';
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -17,8 +18,6 @@ import Card from "../../../components/Dashboard/Card/Card";
 import CardBody from "../../../components/Dashboard/Card/CardBody";
 import CardHeader from "../../../components/Dashboard/Card/CardHeader";
 import CardFooter from "../../../components/Dashboard/Card/CardFooter";
-
-import LoggedUserPage from "./LoggedUserPage";
 
 import loginPageStyle from "../../../assets/jss/material-dashboard-pro-react/views/loginPageStyle";
 
@@ -43,7 +42,7 @@ class LoginPage extends React.Component {
   }
 
   componentWillMount() {
-    if (localStorage.getItem("UserAccount") || localStorage.getItem("authAccount")) {
+    if (localStorage.getItem("UserAccount")) {
       this.setState({
         logged: !this.state.logged
       });
@@ -76,14 +75,6 @@ class LoginPage extends React.Component {
       return true;
     }
     return false;
-  }
-  loginClick = () => {
-    if (this.state.loginEmailState === "") {
-      this.setState({ loginEmailState: "error" });
-    }
-    if (this.state.loginPasswordState === "") {
-      this.setState({ loginPasswordState: "error" });
-    }
   }
   handleChange = (event, stateName, type) => {
     var target = event.target;
@@ -125,7 +116,7 @@ class LoginPage extends React.Component {
     const { username, password, logged, cardAnimaton, loginEmailState, loginPasswordState } = this.state;
     const { classes } = this.props;
     if (logged === true) {
-      return (<LoggedUserPage></LoggedUserPage>);
+      return (<Redirect to="/"></Redirect>);
     }
     return (
       <div className={classes.container}>

@@ -42,3 +42,30 @@ export const actionFetchAllOrdersRequest = () => {
         })
     }
 }
+// Actions EDIT GET product
+export const actGetOrderByIdRequest = (id) => {
+    return dispatch => {
+        return CallApi(`get-order/${id}`, 'GET', null).then(res => {
+            dispatch(actGetOrder(res.data));
+        });
+    }
+}
+export const actGetOrder = (order) => {
+    return {
+        type: Types.GET_ORDER_BY_ID,
+        order
+    }
+}
+export const actGetProductsOrderRequest = (id) => {
+    return dispatch => {
+        return CallApi(`get-order-detail/${id}`, 'GET', null).then(res => {
+            dispatch(actGetProductsOrder(res.data));
+        })
+    }
+}
+export const actGetProductsOrder = (productsOrder) => {
+    return {
+        type: Types.GET_PRODUCTS_ORDER,
+        productsOrder
+    }
+}

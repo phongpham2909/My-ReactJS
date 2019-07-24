@@ -1,138 +1,122 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 // @material-ui/icons
 import Info from "@material-ui/icons/Info";
 import Receipt from "@material-ui/icons/Receipt";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
-import PersonPinOutlined from "@material-ui/icons/PersonPinOutlined";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import QueryBuilder from "@material-ui/icons/QueryBuilder";
 import AttachMoney from "@material-ui/icons/AttachMoney";
+import KeyboardBackspace from "@material-ui/icons/KeyboardBackspace";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridContainer from '../../../components/Dashboard/Grid/GridContainer';
 import GridItem from '../../../components/Dashboard/Grid/GridItem';
-import NavPills from '../../../components/Dashboard/NavPills/NavPills';
 import Card from '../../../components/Dashboard/Card/Card';
 import CardHeader from '../../../components/Dashboard/Card/CardHeader';
 import CardBody from '../../../components/Dashboard/Card/CardBody';
+import CardIcon from "../../../components/Dashboard/Card/CardIcon.jsx";
+import CustomTabs from "../../../components/Dashboard/CustomTabs/CustomTabs";
+//import Button from "../../../components/Dashboard/CustomButtons/Button";
 // jss styles
 import styles from '../../../assets/jss/material-dashboard-pro-react/views/Order/orderDetailStyles';
 import SectionOrderDetails from './Sections/SectionOrderDetails';
 import SectionOrderStatus from './Sections/SectionOrderStatus';
+import SectionOrderPayment from './Sections/SectionOrderPayment';
+import SectionProductsOrder from './Sections/SectionProductsOrder';
+import SectionInvoice from './Sections/SectionInvoice';
 
 class OrderDetail extends Component {
-    render() {
-        const { classes } = this.props;
-        return (
-            <GridContainer justify="center">
+  render() {
+    const { classes, orderByID, productsOrder, format_curency } = this.props;
+    return (
+      <GridContainer justify="center">
+        <GridItem xs={12} sm={12}>
+          <Link to="/administration/orders"><KeyboardBackspace className={classes.hoverIcon} /></Link>
+          <h3 className={classes.pageSubcategoriesTitle}>
+            Order {orderByID.orderReference}
+          </h3>
+          <h4 className={classes.pageSubcategoriesTitle}>From {orderByID.orderCustomerName}</h4>
+          <br />
+          <GridContainer>
             <GridItem xs={12} sm={12}>
-              <h3 className={classes.pageSubcategoriesTitle}>
-                Order
-              </h3>
-              <br />
-              <GridContainer>
-            <GridItem xs={12} sm={12}>
-              <NavPills
-                color="warning"
-                alignCenter
+              <CustomTabs
+                headerColor="primary"
                 tabs={[
                   {
-                    tabButton: "Order Details",
+                    tabName: "Info",
                     tabIcon: Info,
                     tabContent: (
-                      <Card>
-                        <CardHeader>
-                          <div>
-                          <span className={classes.cardTitle}>
-                            <PersonPinOutlined/> </span><p>Customer</p>
-                          </div>
+                      <Card plain>
+                        <CardHeader icon>
+                          <CardIcon color="primary">
+                            <AccountCircle />
+                          </CardIcon>
+                          <h4 className={classes.pageSubcategoriesTitle}>Customer</h4>
                         </CardHeader>
                         <CardBody>
-                          <SectionOrderDetails/>
+                          <SectionOrderDetails orderByID={orderByID} />
                         </CardBody>
-                        <CardHeader>
-                          <div>
-                          <span className={classes.cardTitle}>
-                            <QueryBuilder/></span><p>Order Status</p>
-                          </div>
+                        <br />
+                        <br />
+                        <CardHeader icon>
+                          <CardIcon color="primary">
+                            <QueryBuilder />
+                          </CardIcon>
+                          <h4 className={classes.pageSubcategoriesTitle}>Order Status</h4>
+
                         </CardHeader>
+
                         <CardBody>
-                          <SectionOrderStatus/>
+                          <SectionOrderStatus orderByID={orderByID} />
                         </CardBody>
-                        <CardHeader>
-                          <div>
-                          <span className={classes.cardTitle}>
-                            <AttachMoney/></span><p>Payment</p>
-                          </div>
+                        <br />
+                        <br />
+                        <CardHeader icon>
+                          <CardIcon color="primary">
+                            <AttachMoney />
+                          </CardIcon>
+                          <h4 className={classes.pageSubcategoriesTitle}>Payment</h4>
+
                         </CardHeader>
                         <CardBody>
-                          <SectionOrderStatus/>
+                          <SectionOrderPayment orderByID={orderByID} />
                         </CardBody>
                       </Card>
                     )
                   },
                   {
-                    tabButton: "Products",
+                    tabName: "Products",
                     tabIcon: ShoppingBasket,
                     tabContent: (
-                      <Card>
-                        <CardHeader>
-                          <h4 className={classes.cardTitle}>
-                            Location of the product
-                          </h4>
-                          <p className={classes.cardCategory}>
-                            More information here
-                          </p>
-                        </CardHeader>
-                        <CardBody>
-                          Efficiently unleash cross-media information without
-                          cross-media value. Quickly maximize timely deliverables
-                          for real-time schemas.
-                          <br />
-                          <br />
-                          Dramatically maintain clicks-and-mortar solutions
-                          without functional solutions.
-                        </CardBody>
-                      </Card>
+                      <SectionProductsOrder productsOrder={productsOrder} />
                     )
                   },
                   {
-                    tabButton: "Invoice",
+                    tabName: "Invoice",
                     tabIcon: Receipt,
                     tabContent: (
-                      <Card>
-                        <CardHeader>
-                          <h4 className={classes.cardTitle}>
-                            Legal info of the product
-                          </h4>
-                          <p className={classes.cardCategory}>
-                            More information here
-                          </p>
-                        </CardHeader>
-                        <CardBody>
-                          Completely synergize resource taxing relationships via
-                          premier niche markets. Professionally cultivate
-                          one-to-one customer service with robust ideas.
-                          <br />
-                          <br />
-                          Dynamically innovate resource-leveling customer service
-                          for state of the art customer service.
-                        </CardBody>
-                      </Card>
+                      <SectionInvoice
+                        orderByID={orderByID}
+                        productsOrder={productsOrder}
+                        format_curency={format_curency}
+                      />
                     )
-                  }                 
+                  }
                 ]}
               />
-              </GridItem>
-              </GridContainer>
             </GridItem>
           </GridContainer>
-        );
-    }
+        </GridItem>
+      </GridContainer>
+
+    );
+  }
 }
 OrderDetail.propTypes = {
-    classes: PropTypes.object.isRequired
-  };
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(OrderDetail);

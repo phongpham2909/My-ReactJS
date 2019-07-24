@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ToastContainer } from 'react-toastify';
+import { Redirect } from 'react-router-dom';
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -28,6 +29,7 @@ import CardBody from "../../../components/Dashboard/Card/CardBody";
 import registerPageStyle from "../../../assets/jss/material-dashboard-pro-react/views/registerPageStyle";
 
 import { connect } from "react-redux";
+import { toast } from 'react-toastify';
 import { actFetchUserRequest } from "../../../redux/actions/authenticated";
 
 class RegisterPage extends React.Component {
@@ -39,15 +41,78 @@ class RegisterPage extends React.Component {
       lastname: '',
       username: '',
       password: '',
+      logged: false,
+      registerFirstname: "",
+      registerLastname: "",
+      registerUsername: "",
+      registerPassword: "",
+      registerFirstnameState: "",
+      registerLastnameState: "",
+      registerUsernameState: "",
+      registerPasswordState: ""
     };
   }
-  handleChange = (event) => {
+  componentWillMount() {
+    if (localStorage.getItem("UserAccount")) {
+      this.setState({
+        logged: !this.state.logged
+      });
+    }
+  }
+  // function that returns true if value is email, false otherwise
+  verifyEmail(value) {
+    var emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (emailRex.test(value)) {
+      return true;
+    }
+    return false;
+  }
+  // function that verifies if a string has a given length or not
+  verifyLength(value, length) {
+    if (value.length >= length) {
+      return true;
+    }
+    return false;
+  }
+  handleChange = (event, stateName, type) => {
     var target = event.target;
     var name = target.name;
     var value = target.value;
     this.setState({
       [name]: value
     });
+    switch (type) {
+      case "firstname":
+        if (this.verifyLength(event.target.value, 1)) {
+          this.setState({ [stateName + "State"]: "success" });
+        } else {
+          this.setState({ [stateName + "State"]: "error" });
+        }
+        break;
+      case "lastname":
+        if (this.verifyLength(event.target.value, 1)) {
+          this.setState({ [stateName + "State"]: "success" });
+        } else {
+          this.setState({ [stateName + "State"]: "error" });
+        }
+        break;
+      case "username":
+        if (this.verifyEmail(event.target.value)) {
+          this.setState({ [stateName + "State"]: "success" });
+        } else {
+          this.setState({ [stateName + "State"]: "error" });
+        }
+        break;
+      case "password":
+        if (this.verifyLength(event.target.value, 1)) {
+          this.setState({ [stateName + "State"]: "success" });
+        } else {
+          this.setState({ [stateName + "State"]: "error" });
+        }
+        break;
+      default:
+        break;
+    }
   }
   handleToggle = (value) => {
     const { checked } = this.state;
@@ -70,17 +135,27 @@ class RegisterPage extends React.Component {
     var user = {
       firstname: firstname,
       lastname: lastname,
-      username: username,
+      userEmail: username,
       password: password
     }
-    this.props.fetchRegisterUser(user);
+    if (firstname === "" || lastname === "" || username === "" || password === "") {
+      toast.error("Error Register!! Please confirm again", {
+        position: toast.POSITION.BOTTOM_CENTER
+      });
+    }
+    else {
+      this.props.fetchRegisterUser(user);
+    }
   }
   render() {
-    const { firstname, lastname, username, password } = this.state;
+    const { firstname, lastname, username, password, logged, registerFirstnameState, registerLastnameState, registerUsernameState, registerPasswordState } = this.state;
     const { classes } = this.props;
+    if (logged === true) {
+      return (<Redirect to="/"></Redirect>);
+    }
     return (
       <div className={classes.container}>
-          <ToastContainer autoClose={3000}/>
+        <ToastContainer autoClose={3000} />
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={10}>
             <Card className={classes.cardSignup}>
@@ -125,12 +200,15 @@ class RegisterPage extends React.Component {
                     </div>
                     <form className={classes.form} onSubmit={this.handleSubmit}>
                       <CustomInput
+                        success={registerFirstnameState === "success"}
+                        error={registerFirstnameState === "error"}
+                        labelText="Firstname *"
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
-                          startAdornment: (
+                          endAdornment: (
                             <InputAdornment
                               position="start"
                               className={classes.inputAdornment}
@@ -140,18 +218,19 @@ class RegisterPage extends React.Component {
                           ),
                           type: "text",
                           name: "firstname",
-                          placeholder: "First Name *",
                           value: firstname,
-                          onChange: this.handleChange
+                          onChange: event => this.handleChange(event, "registerFirstname", "firstname")
                         }}
                       />
                       <CustomInput
+                        success={registerLastnameState === "success"}
+                        error={registerLastnameState === "error"}
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
-                          startAdornment: (
+                          endAdornment: (
                             <InputAdornment
                               position="start"
                               className={classes.inputAdornment}
@@ -163,16 +242,18 @@ class RegisterPage extends React.Component {
                           name: "lastname",
                           placeholder: "Last Name *",
                           value: lastname,
-                          onChange: this.handleChange
+                          onChange: event => this.handleChange(event, "registerLastname", "lastname")
                         }}
                       />
                       <CustomInput
+                        success={registerUsernameState === "success"}
+                        error={registerUsernameState === "error"}
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
-                          startAdornment: (
+                          endAdornment: (
                             <InputAdornment
                               position="start"
                               className={classes.inputAdornment}
@@ -184,16 +265,18 @@ class RegisterPage extends React.Component {
                           name: "username",
                           placeholder: "Email Address *",
                           value: username,
-                          onChange: this.handleChange
+                          onChange: event => this.handleChange(event, "registerUsername", "username")
                         }}
                       />
                       <CustomInput
+                        success={registerPasswordState === "success"}
+                        error={registerPasswordState === "error"}
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
-                          startAdornment: (
+                          endAdornment: (
                             <InputAdornment
                               position="start"
                               className={classes.inputAdornment}
@@ -207,8 +290,7 @@ class RegisterPage extends React.Component {
                           name: "password",
                           placeholder: "Password *",
                           value: password,
-                          onChange: this.handleChange
-
+                          onChange: event => this.handleChange(event, "registerPassword", "password")
                         }}
                       />
                       <FormControlLabel

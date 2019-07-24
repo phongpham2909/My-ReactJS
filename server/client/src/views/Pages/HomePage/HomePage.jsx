@@ -80,7 +80,7 @@ class HomePage extends React.Component {
             </GridContainer>
               <NavPills
                 alignCenter
-                color="rose"
+                color="primary"
                 tabs={[
                   {
                     tabButton: "Featured",

@@ -1,4 +1,4 @@
-import { mlAuto } from "../../material-kit-pro-react";
+import { mlAuto, dangerColor,defaultFont } from "../../material-kit-pro-react";
 
 import tooltip from "../tooltipsStyle";
 
@@ -136,6 +136,30 @@ const headerLinksStyle = theme => ({
     },
     "& $icons": {
       marginRight: "3px"
+    }
+  },
+  notifications: {
+    zIndex: "4",
+    [theme.breakpoints.up("md")]: {
+      position: "absolute",
+      top: "5px",
+      border: "1px solid #ef5350",
+      right: "5px",
+      fontSize: "9px",
+      background: dangerColor[1],
+      color: "#FFFFFF",
+      minWidth: "16px",
+      height: "16px",
+      borderRadius: "10px",
+      textAlign: "center",
+      lineHeight: "14px",
+      verticalAlign: "middle",
+      display: "block"
+    },
+    [theme.breakpoints.down("sm")]: {
+      ...defaultFont,
+      fontSize: "14px",
+      marginRight: "8px"
     }
   },
   notificationNavLink: {

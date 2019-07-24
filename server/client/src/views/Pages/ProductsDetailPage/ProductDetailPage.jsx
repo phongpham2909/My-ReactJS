@@ -156,26 +156,7 @@ class ProductDetailPage extends React.Component {
                                                 title: "Description",
                                                 content: (
                                                     <p>
-                                                        Eres' daring 'Grigri Fortune' swimsuit has the fit
-                                                        and coverage of a bikini in a one-piece silhouette.
-                                                        This fuchsia style is crafted from the label's
-                                                        sculpting peau douce fabric and has flattering
-                                                        cutouts through the torso and back. Wear yours with
-                                                        mirrored sunglasses on vacation.
-                                                    </p>
-                                                )
-                                            },
-                                            {
-                                                title: "Designer Information",
-                                                content: (
-                                                    <p>
-                                                        An infusion of West Coast cool and New York
-                                                        attitude, Rebecca Minkoff is synonymous with It girl
-                                                        style. Minkoff burst on the fashion scene with her
-                                                        best-selling 'Morning After Bag' and later expanded
-                                                        her offering with the Rebecca Minkoff Collection - a
-                                                        range of luxe city staples with a \"downtown
-                                                        romantic\" theme.
+                                                        {product.productDescription}
                                                     </p>
                                                 )
                                             },
@@ -199,7 +180,7 @@ class ProductDetailPage extends React.Component {
                                         ]}
                                     />
                                     <GridContainer className={classes.pickSize}>
-                                        <GridItem md={6} sm={6}>
+                                        <GridItem md={5} sm={6}>
                                             <label>Select color</label>
                                             <FormControl
                                                 fullWidth
@@ -249,7 +230,7 @@ class ProductDetailPage extends React.Component {
                                                 </Select>
                                             </FormControl>
                                         </GridItem>
-                                        <GridItem md={6} sm={6}>
+                                        <GridItem md={5} sm={6}>
                                             <label>Select size</label>
                                             <FormControl
                                                 fullWidth

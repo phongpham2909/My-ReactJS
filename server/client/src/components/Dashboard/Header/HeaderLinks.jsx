@@ -2,7 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 // import { Manager, Target, Popper } from "react-popper";
-
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -12,15 +11,11 @@ import Paper from "@material-ui/core/Paper";
 import Grow from "@material-ui/core/Grow";
 import Hidden from "@material-ui/core/Hidden";
 import Popper from "@material-ui/core/Popper";
-
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
-import Search from "@material-ui/icons/Search";
-
 // core components
-import CustomInput from "../CustomInputs/CustomInput";
 import Button from "../CustomButtons/Button";
 
 import headerLinksStyle from "../../../assets/jss/material-dashboard-pro-react/components/headerLinksStyle";
@@ -41,14 +36,6 @@ class HeaderLinks extends React.Component {
   render() {
     const { classes, rtlActive } = this.props;
     const { open } = this.state;
-    const searchButton =
-      classes.top +
-      " " +
-      classes.searchButton +
-      " " +
-      classNames({
-        [classes.searchRTL]: rtlActive
-      });
     const dropdownItem = classNames(
       classes.dropdownItem,
       classes.primaryHover,
@@ -62,30 +49,6 @@ class HeaderLinks extends React.Component {
     });
     return (
       <div className={wrapper}>
-        <CustomInput
-          rtlActive={rtlActive}
-          formControlProps={{
-            className: classes.top + " " + classes.search
-          }}
-          inputProps={{
-            placeholder: rtlActive ? "بحث" : "Search",
-            inputProps: {
-              "aria-label": rtlActive ? "بحث" : "Search",
-              className: classes.searchInput
-            }
-          }}
-        />
-        <Button
-          color="white"
-          aria-label="edit"
-          justIcon
-          round
-          className={searchButton}
-        >
-          <Search
-            className={classes.headerLinksSvg + " " + classes.searchIcon}
-          />
-        </Button>
         <Button
           color="transparent"
           simple

@@ -4,24 +4,30 @@ import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 // core components
 import ImageUpload from "../../../../components/Dashboard/CustomUpload/ImageUpload";
-import CustomInput from "../../../../components/Dashboard/CustomInputs/CustomInput";
 import GridContainer from "../../../../components/Dashboard/Grid/GridContainer";
 import GridItem from "../../../../components/Dashboard/Grid/GridItem";
 import Button from "../../../../components/Dashboard/CustomButtons/Button";
-import CardBody from "../../../../components/Dashboard/Card/CardBody";
 import CardFooter from "../../../../components/Dashboard/Card/CardFooter";
+import Card from "../../../../components/Dashboard/Card/Card";
+import CardHeader from "../../../../components/Dashboard/Card/CardHeader";
+import CardBody from "../../../../components/Dashboard/Card/CardBody";
 // core components material
 import FormLabel from "@material-ui/core/FormLabel";
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import TextField from '@material-ui/core/TextField';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // icons material
 import Check from "@material-ui/icons/Check";
 import Save from "@material-ui/icons/Save";
 import Cancel from "@material-ui/icons/Cancel";
+import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+import Info from '@material-ui/icons/Info';
+import PermMedia from '@material-ui/icons/PermMedia';
+import LocalShipping from '@material-ui/icons/LocalShipping';
+import Store from '@material-ui/icons/Store';
 // jss styles
 import styles from "../../../../assets/jss/material-dashboard-pro-react/views/ProductManagement/productManagement";
 // connect redux
@@ -40,7 +46,8 @@ class CardActionForm extends Component {
       categoryID: "",
       txtQuantity: "",
       txtDescription: "",
-      ckbStatus: true
+      ckbStatus: true,
+      newValue: 0
     };
   }
   componentWillMount() {
@@ -73,6 +80,11 @@ class CardActionForm extends Component {
       [name]: value
     });
   }
+  handleChangeIndex = (event, newValue) => {
+    this.setState({
+      newValue
+    })
+  }
   handleChangImage = (event) => {
 
   }
@@ -95,194 +107,172 @@ class CardActionForm extends Component {
       history.goBack();
     } else {
       this.props.actAddProduct(product);
+      this.setState({ id: product.productID })
       history.goBack();
     }
   }
   render() {
-    const { txtName, txtImage, txtPrice, txtQuantity, categoryID, txtColor, txtDescription, ckbStatus } = this.state;
+    const { txtName, txtImage, txtPrice, txtQuantity, categoryID, txtColor, txtDescription, ckbStatus, newValue } = this.state;
     const { classes, categories } = this.props;
     return (
-      <CardBody>
+      <Card>
         <form onSubmit={this.handleSave}>
-          <GridContainer justify="center">
-            <GridItem md={6} style={{ textAlign: "center" }}>
-              <legend>Image Product</legend>
-              <ImageUpload
-                addButtonProps={{
-                  color: "primary",
-                  default: true
-                }}
-                changeButtonProps={{
-                  color: "primary",
-                  default: true
-                }}
-                removeButtonProps={{
-                  color: "danger",
-                  default: true
-                }}
-                onChange={this.handleChangImage}
-              />
-            </GridItem>
-            <GridItem md={6}>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <FormLabel className={classes.labelHorizontal}>Name</FormLabel>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={9}>
-                  <CustomInput
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "text",
-                      name: "txtName",
-                      value: txtName,
-                      onChange: this.handleChange
-                    }}
-                    helpText="Enter your product name here."
+          <div className={classes.root3}>
+            
+              <Tabs
+                className={classes.customTabs}
+                value={newValue}
+                onChange={this.handleChangeIndex}
+                indicatorColor="primary"
+                textColor="primary"
+                scrollable
+                scrollButtons="auto"
+              >
+                <Tab label="Basic Info" icon={<Info />} />
+                <Tab label="Product Images" icon={<PermMedia />} />
+                <Tab label="Pricing" icon={<ShoppingBasket />} />
+                <Tab label="Inventory" icon={<Store />} />
+                <Tab label="Shipping" icon={<LocalShipping />} />
+              </Tabs>
+           
+            <CardBody>
+              {newValue === 0 && <GridContainer>
+                <GridItem xs={12} md={12}>
+                  <TextField
+                    label="Name*"
+                    type="text"
+                    className={classes.textField}
+                    name="txtName"
+                    value={txtName}
+                    variant="outlined"
+                    onChange={this.handleChange}
                   />
                 </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <FormLabel className={classes.labelHorizontal}>Price</FormLabel>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={9}>
-                  <CustomInput
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "number",
-                      value: txtPrice,
-                      name: "txtPrice",
-                      onChange: this.handleChange
-                    }}
-                    helpText="Enter your price here."
+
+                <GridItem xs={12} md={12}>
+                  <TextField
+                    label="Description"
+                    type="text"
+                    multiline
+                    rows="4"
+                    className={classes.textField}
+                    name="txtDescription"
+                    value={txtDescription}
+                    variant="outlined"
+                    onChange={this.handleChange}
                   />
                 </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <FormLabel className={classes.labelHorizontal}>Quantity</FormLabel>
+                <GridItem xs={12} md={12}>
+                  <GridContainer>
+                    <GridItem xs={12} md={6}>
+                      <TextField
+                        label="Color"
+                        type="text"
+                        className={classes.textField}
+                        name="txtColor"
+                        value={txtColor}
+                        variant="outlined"
+                        onChange={this.handleChange}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} md={6}>
+                      <TextField
+                        select
+                        label="Select"
+                        className={classes.textField}
+                        name="categoryID"
+                        value={categoryID ? categoryID : ''}
+                        onChange={this.handleChange}
+                        SelectProps={{
+                          MenuProps: {
+                            className: classes.menu,
+                          },
+                        }}
+                        margin="normal"
+                        variant="outlined"
+                      >
+                        {categories.map(item => {
+                          return (
+                            <MenuItem
+                              classes={{
+                                root: classes.selectMenuItem,
+                                selected: classes.selectMenuItemSelected
+                              }}
+                              key={item.categoryID}
+                              value={item.categoryID ? item.categoryID : ''}>
+                              {item.categoryName}
+                            </MenuItem>
+                          )
+                        })}
+                      </TextField>
+                    </GridItem>
+                  </GridContainer>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={9}>
-                  <CustomInput
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "number",
-                      value: txtQuantity,
-                      name: "txtQuantity",
-                      onChange: this.handleChange
-                    }}
-                    helpText="Enter your quantity here."
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <FormLabel className={classes.labelHorizontal}>Category</FormLabel>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={9} >
-                  <FormControl
-                    fullWidth
-                    className={classes.selectFormControl}
-                  >
-                    <Select
-                      MenuProps={{
-                        className: classes.selectMenu
+              </GridContainer>}
+              {newValue === 1 &&
+                <GridContainer>
+                  <GridItem xs={12} md={12}>
+                    <TextField
+                      label="Url"
+                      type="text"
+                      className={classes.textField}
+                      name="txtImage"
+                      value={txtImage}
+                      variant="outlined"
+                      onChange={this.handleChange}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} md={12}>
+                    <legend>Image Product</legend>
+                    <ImageUpload
+                      addButtonProps={{
+                        color: "primary",
+                        default: true
                       }}
-                      classes={{
-                        select: classes.select
+                      changeButtonProps={{
+                        color: "primary",
+                        default: true
                       }}
-                      inputProps={{
-                        name: "categoryID",
-                        value: categoryID ? categoryID : '',
-                        onChange: this.handleChange
-                      }}>
-                      {categories.map(item => {
-                        return (
-                          <MenuItem
-                            classes={{
-                              root: classes.selectMenuItem,
-                              selected: classes.selectMenuItemSelected
-                            }}
-                            key={item.categoryID}
-                            value={item.categoryID ? item.categoryID : ''}>
-                            {item.categoryName}
-                          </MenuItem>
-                        )
-                      })}
-                    </Select>
-                    <FormHelperText>Choose a category.</FormHelperText>
-                  </FormControl>
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <FormLabel className={classes.labelHorizontal}>Color</FormLabel>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={9}>
-                  <CustomInput
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "text",
-                      value: txtColor,
-                      name: "txtColor",
-                      onChange: this.handleChange
-                    }}
-                    helpText="Enter your color here."
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <FormLabel className={classes.labelHorizontal}>Url Image</FormLabel>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={9}>
-                  <CustomInput
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "text",
-                      name: "txtImage",
-                      value: txtImage,
-                      onChange: this.handleChange
-                    }}
-                    helpText="Enter your Url Image here."
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <FormLabel className={classes.labelHorizontal}>Description</FormLabel>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={9}>
-                  <CustomInput
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "text",
-                      value: txtDescription,
-                      name: "txtDescription",
-                      onChange: this.handleChange
-                    }}
-                    helpText="Enter your description here."
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer style={{ marginTop: "15px" }}>
-                <GridItem md={3}>
-                  <FormLabel className={classes.labelHorizontal}>Status</FormLabel>
-                </GridItem>
-                <GridItem md={9}>
-                  <div className={classes.inlineChecks}>
+                      removeButtonProps={{
+                        color: "danger",
+                        default: true
+                      }}
+                      onChange={this.handleChangImage}
+                    />
+                  </GridItem>
+                </GridContainer>
+              }
+              {newValue === 2 &&
+                <GridContainer>
+                  <GridItem xs={12} md={12}>
+                    <TextField
+                      label="Price*"
+                      type="number"
+                      className={classes.textField}
+                      name="txtPrice"
+                      value={txtPrice}
+                      variant="outlined"
+                      onChange={this.handleChange}
+                    />
+                  </GridItem>
+
+                </GridContainer>
+              }
+              {newValue === 3 &&
+                <GridContainer>
+                  <GridItem xs={12} md={12}>
+                    <TextField
+                      label="Quantity*"
+                      type="number"
+                      className={classes.textField}
+                      name="txtQuantity"
+                      value={txtQuantity}
+                      variant="outlined"
+                      onChange={this.handleChange}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} md={12}>
+                    <FormLabel className={classes.labelHorizontal}>Status :</FormLabel>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -303,24 +293,25 @@ class CardActionForm extends Component {
                       }}
                       label={ckbStatus ? "In Stock" : "Out of Stock"}
                     />
-                  </div>
-                </GridItem>
-              </GridContainer>
-            </GridItem>
-            <CardFooter>
-              <Button color="info" className={classes.mrRightButton} type="submit">
-                <Save /> Save
+                  </GridItem>
+                </GridContainer>
+              }
+              {newValue === 4 && <div>Item Five</div>}
+            </CardBody>
+          </div>
+          <CardFooter>
+            <Button color="info" className={classes.mrRightButton} type="submit">
+              <Save /> Save
               </Button>
 
-              <Link to="/administration/products-management">
-                <Button color="danger">
-                  <Cancel /> Cancel
+            <Link to="/administration/products-management">
+              <Button color="danger">
+                <Cancel /> Cancel
                 </Button>
-              </Link>
-            </CardFooter>
-          </GridContainer>
+            </Link>
+          </CardFooter>
         </form>
-      </CardBody>
+      </Card>
     );
   }
 }
@@ -341,7 +332,7 @@ const mapDispatchToProps = (dispatch) => {
     actUpdateProduct: (product) => {
       dispatch(actUpdateProductRequest(product));
     },
-   
+
   };
 };
 CardActionForm.propTypes = {

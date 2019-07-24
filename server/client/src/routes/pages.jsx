@@ -9,8 +9,14 @@ import ProfileContainer from "../redux/containers/ProfileContainer";
 import ProductContainer from "../redux/containers/ProductContainer";
 import CheckoutContainer from "../redux/containers/CheckOutContainer";
 import CompleteContainer from "../redux/containers/ComplteOrderContainer";
+import CheckOutContainer from "../redux/containers/CheckOrderContainer";
 
 const pagesRoutes = [
+  {
+    path: "/check-order",
+    name: "Check Order",
+    component: () => <CheckOutContainer/>
+  },
   {
     path: "/cart/complete-order",
     name: "Complete Order",

@@ -33,18 +33,17 @@ class SectionProductBestSeller extends React.Component {
                   <Card product plain>
                     <CardHeader image plain>
                       <Link to={`/product-detail/${product.productID}`}>
+           
                         <img src={product.productImageOfficial} alt={product.productName} />
+                    
                       </Link>
                       <div
-                        className={classes.coloredShadow}
+                        className={`${classes.coloredShadow}`}
                         style={{ backgroundImage: `url(${product.productImageOfficial})`, opacity: 1 }}
                       />
                     </CardHeader>
                     <CardBody className={classes.textCenter} plain>
                       <h5 className={`${classes.cardTitle} ${classes.customFont}`}>{product.productName}</h5>
-                      <p className={classes.cardDescription}>
-                        {product.productDescription}
-                      </p>
                     </CardBody>
                     <CardFooter plain>
                       <div className={classes.priceContainer}>

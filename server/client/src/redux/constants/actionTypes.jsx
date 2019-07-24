@@ -46,3 +46,14 @@ export const ADD_ORDER = "ADD_ORDER";
 export const ADD_ORDER_DETAIL = "ADD_ORDER_DETAIL";
 // Order table admin
 export const FETCH_ALL_ORDER = "FETCH_ALL_ORDER";
+export const GET_ORDER_BY_ID = "GET_ORDER_BY_ID";
+export const GET_PRODUCTS_ORDER = "GET_PRODUCTS_ORDER";
+// My Orders for User 
+export const FETCH_ALL_ORDERS_CUSTOMER = "FETCH_ALL_ORDERS_CUSTOMER";
+// Customer Dashboard
+export const GET_CUSTOMERS = "GET_CUSTOMERS";
+export const ADD_CUSTOMERS = "ADD_CUSTOMERS";
+export const UPDATE_CUSTOMERS = "UPDATE_CUSTOMERS";
+export const DELETE_CUSTOMERS = "DELETE_CUSTOMERS";
+export const EDIT_CUSTOMERS = "EDIT_CUSTOMERS";
+export const SEARCH_CUSTOMERS = "SEARCH_CUSTOMERS";

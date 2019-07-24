@@ -42,9 +42,6 @@ class SectionProductFeatured extends React.Component {
                     </CardHeader>
                     <CardBody className={classes.textCenter} plain>
                       <h5 className={`${classes.cardTitle} ${classes.customFont}`}>{product.productName}</h5>
-                      <p className={classes.cardDescription}>
-                        {product.productDescription}
-                      </p>
                     </CardBody>
                     <CardFooter plain>
                       <div className={classes.priceContainer}>

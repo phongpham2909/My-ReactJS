@@ -11,32 +11,49 @@ import ListItem from "@material-ui/core/ListItem";
 import Icon from "@material-ui/core/Icon";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
 // @material-ui/icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import { connect } from 'react-redux';
 // core components
 import CustomDropdown from "../../../components/Pages/CustomDropdown/CustomDropdown.jsx";
-
 import headerLinksStyle from "../../../assets/jss/material-kit-pro-react/components/headerLinksStyle";
 import menuHeaderRoutes from "../../../routes/menuheader";
 import avatar from '../../../assets/img/placeholder.jpg';
 //  import { isAuthenticated } from '../../../redux/actions/authenticated';
 
 class HeaderLinks extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      cart: []
+    }
+  }
+  componentWillMount(){
+    console.log(this.props)
+  }
+  handleUpdateCart = (quantity) => {
+    return quantity;
+  }
   activeRoute = (routeName) => {
     return this.props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
   handleLogOut = (event) => {
     event.preventDefault();
     window.location.href = "/";
-    return localStorage.removeItem('UserAccount') + localStorage.removeItem('authAccount');
+    return localStorage.removeItem('UserAccount');
 
   }
   render() {
     const { classes, dropdownHoverColor } = this.props;
+    //var cart = JSON.parse(localStorage.getItem('CART'));
     var user = JSON.parse(localStorage.getItem('UserAccount'));
-    var auth = JSON.parse(localStorage.getItem('authAccount'));
+    //var auth = JSON.parse(localStorage.getItem('authAccount'));
+    const navLink =
+            classes.navLink +
+            cx({
+              [" " + classes.navLinkActive]: this.activeRoute("/cart")
+            });
     return (
       <List className={classes.list + " " + classes.mlAuto}>
         {menuHeaderRoutes.navMenuRoutes.map((prop, key) => {
@@ -63,7 +80,20 @@ class HeaderLinks extends Component {
             </ListItem>
           );
         })}
-        {(auth || user) ?
+        <ListItem className={classes.listItem}>
+              <NavLink to="/cart" className={navLink}>
+                <ListItemIcon className={classes.listItemIcon}>
+                  <ShoppingCart/>
+                </ListItemIcon>
+                <ListItemText
+                  primary="Cart"
+                  disableTypography={true}
+                  className={classes.listItemText}
+                />
+                 <span className={classes.notifications}>0</span>
+              </NavLink>
+            </ListItem>
+        {user ?
           <ListItem className={classes.listItem} style={{ marginLeft: 10 }}>
             <CustomDropdown
               left
@@ -86,10 +116,10 @@ class HeaderLinks extends Component {
                 color: "transparent"
               }}
               dropdownList={[
-                <Link to={`/profile-page/${user.customerID ? user.customerID : auth.administrationID}`} className={classes.dropdownLink}>
+                <Link to={`/profile-page/${user.customerID}`} className={classes.dropdownLink}>
                   <Icon className={classes.dropdownIcons} >person</Icon> Profile
                 </Link>,
-                <Link to="/user/check-order" className={classes.dropdownLink}>
+                <Link to="/check-order" className={classes.dropdownLink}>
                   <Icon className={classes.dropdownIcons} >shopping_cart</Icon> Check Order
                 </Link>,
                 <Link onClick={this.handleLogOut} to="#" className={classes.dropdownLink}>

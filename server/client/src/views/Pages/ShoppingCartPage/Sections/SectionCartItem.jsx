@@ -19,8 +19,8 @@ import { toast } from 'react-toastify';
 import { css } from 'glamor';
 
 class SectionCartItem extends Component {
-    showTotalAmountItem = (price, quantity) => {
-        return this.props.format_curency(price * quantity);
+    showTotalAmountItem = (price, quantity, sale) => {
+        return this.props.format_curency((price - (price*sale/100)) * quantity);
     }
     handleRemove = (product) => {
         if (confirm('You want to be sure to remove this product from the shopping cart?')) { //eslint-disable-line
@@ -77,7 +77,7 @@ class SectionCartItem extends Component {
                         </small>
                         <br/>
                         <small className={classes.tdNumberSmall}>
-                            Price: {this.props.format_curency(`${item.product.productPrice}`)} <small>đ</small>
+                            Price: {this.props.format_curency(`${item.product.productPrice}`)}<small>đ</small>(-{item.product.productSale} %) 
                         </small>
                     </span>
                 </TableCell>
@@ -108,7 +108,7 @@ class SectionCartItem extends Component {
                 </TableCell>
                 <TableCell className={`${classes.tdNumber} ${classes.textLeft} ${classes.customFont}`}>
                     <span>
-                        {this.showTotalAmountItem(item.product.productPrice, item.quantity)}<small>đ</small>
+                        {this.showTotalAmountItem(item.product.productPrice, item.quantity, item.product.productSale)}<small>đ</small>
                     </span>
                 </TableCell>
                 <TableCell padding="checkbox">

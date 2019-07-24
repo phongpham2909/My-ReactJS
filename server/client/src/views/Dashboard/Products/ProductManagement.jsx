@@ -1,24 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+// @material-ui/core components
+import { withStyles } from "@material-ui/core/styles";
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+import Add from '@material-ui/icons/Add';
 // core components
-import Button from "../../../components/Dashboard/CustomButtons/Button";
 import GridContainer from "../../../components/Dashboard/Grid/GridContainer";
 import GridItem from "../../../components/Dashboard/Grid/GridItem";
 import Card from "../../../components/Dashboard/Card/Card";
-import CardHeader from "../../../components/Dashboard/Card/CardHeader";
-// material-ui icons
-import Add from "@material-ui/icons/Add";
+import CardBody from "../../../components/Dashboard/Card/CardBody";
 // jss styles
 import styles from "../../../assets/jss/material-dashboard-pro-react/views/ProductManagement/productManagement";
-import ProductTable from "./Sections/ProductTable";
-// connect redux
-import { connect } from "react-redux";
-import { actDeleteProductRequest, FILTER_TABLE_PRODUCT } from "../../../redux/actions";
-import CustomInput from "../../../components/Dashboard/CustomInputs/CustomInput";
 //lodash
 import { filter } from 'lodash';
+import ProductTable from "./Sections/ProductTable";
+import Button from "../../../components/Dashboard/CustomButtons/Button";
 
 class ProductManagement extends React.Component {
   handleChange = (event) => {
@@ -39,7 +39,7 @@ class ProductManagement extends React.Component {
     this.props.deleteProduct(id);
   }
   render() {
-    var { products, SearchProduct, ProductFilterTable } = this.props;
+    var { products, SearchProduct, ProductFilterTable, classes } = this.props;
     //Điều kiện Filter Table
     if (ProductFilterTable.name) {
       //use lodash
@@ -55,68 +55,46 @@ class ProductManagement extends React.Component {
       });
     }
     return (
-      <GridContainer>
-        <GridItem xs={12}>
-          <Card>
-            <CardHeader>
-              <GridContainer>
-                <GridItem md={3} xs={12}>
-                  <Link to="/administration/new-product">
-                    <Button color="primary" default>
-                      <Add /> Add New Product
-                    </Button>
-                  </Link>
-                </GridItem>
-                <GridItem xs={1}/>
-                <GridItem md={4} xs={10}>
-                  <CustomInput
-                    labelText="Search..."
-                    formControlProps={{
-                      fullWidth: true,
-                      style: { margin: -10 }
-                    }}
-                    inputProps={{
-                      type: "text",
-                      name: "filterName",
-                      value: ProductFilterTable.name,
-                      onChange: this.handleChange
-                    }}
-                  />                  
-                </GridItem>
-                <GridItem xs={1}/>
-              </GridContainer>
-            </CardHeader>
-            <ProductTable
-              data={products}
-              handleDelete={this.handleDelete} />
-          </Card>
-        </GridItem>
-      </GridContainer>
+      <div>
+        <GridContainer>
+          <GridItem md={3}/>
+          <GridItem md={6} xs={12}>
+            <Paper className={classes.root2} elevation={1}>
+              <IconButton className={classes.iconButton} aria-label="Search">
+                <SearchIcon />
+              </IconButton>
+              <InputBase
+                className={classes.input}
+                placeholder="Search"
+                type="text"
+                name="filterName"
+                value={ProductFilterTable.name}
+                onChange={this.handleChange}
+              />
+            </Paper>
+          </GridItem>
+          <GridItem md={3} xs={12}>
+            <Link to="/administration/new-product">
+              <Button color="warning"><Add/>Add new</Button>
+            </Link>
+          </GridItem>
+        </GridContainer>
+        <GridContainer>
+          <GridItem xs={12}>
+            <Card>
+              <CardBody>
+                <ProductTable handleDelete={this.handleDelete} products={products} />
+              </CardBody>
+            </Card>
+          </GridItem>
+        </GridContainer>
+      </div>
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    products: state.products, // this.props.products
-    SearchProduct: state.SearchProduct,
-    ProductFilterTable: state.productFilterTable,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteProduct: (id) => {
-      dispatch(actDeleteProductRequest(id));
-    },
-    handleProductFilterTable: (filter) => {
-      dispatch(FILTER_TABLE_PRODUCT(filter));
-    }
-  }
-}
+
 ProductManagement.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(ProductManagement));
+export default withStyles(styles)(ProductManagement);

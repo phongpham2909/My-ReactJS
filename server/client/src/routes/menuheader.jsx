@@ -4,14 +4,12 @@ import BlogPostsPage from "../views/Pages/BlogPostsPage/BlogPostsPage";
 import ContactUsPage from "../views/Pages/ContactPage/ContactUsPage";
 import LoginPage from "../views/Pages/LoginPage/LoginPage";
 import RegisterPage from "../views/Pages/RegisterPage/RegisterPage";
-import CartContainer from "../redux/containers/CartContainer";
 
 // @material-ui/icons
 import Store from "@material-ui/icons/Store";
 import Info from "@material-ui/icons/Info";
 import ViewQuilt from "@material-ui/icons/ViewQuilt";
 import LocationOn from "@material-ui/icons/LocationOn";
-import ShoppingCart from "@material-ui/icons/ShoppingCart";
 
 const navMenuRoutes = [
     {
@@ -45,16 +43,7 @@ const navMenuRoutes = [
         mini: "CP",
         icon: LocationOn,
         component: ContactUsPage
-    },
-    {
-        path: "/cart",
-        name: "Shopping Cart",
-        short: "Cart",
-        mini: "SC",
-        icon: ShoppingCart,
-        component: CartContainer
-    },
-
+    }
 ];
 
 const navDropdownMenuRoutes = [

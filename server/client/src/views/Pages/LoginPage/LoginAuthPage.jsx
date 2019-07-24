@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -17,10 +17,8 @@ import Card from "../../../components/Dashboard/Card/Card";
 import CardBody from "../../../components/Dashboard/Card/CardBody";
 import CardHeader from "../../../components/Dashboard/Card/CardHeader";
 import CardFooter from "../../../components/Dashboard/Card/CardFooter";
-import LoggedAuthPage from "./LoggedAuthPage";
-
 import loginPageStyle from "../../../assets/jss/material-dashboard-pro-react/views/loginPageStyle";
-
+// connect redux
 import { connect } from "react-redux";
 import { actFetchAdminRequest } from "../../../redux/actions/authenticated";
 
@@ -124,7 +122,7 @@ class LoginAuthPage extends React.Component {
     const { cardAnimaton, loginEmailState, loginPasswordState, username, password, logged } = this.state;
     const { classes } = this.props;
     if (logged === true) {
-      return (<LoggedAuthPage></LoggedAuthPage>);
+      return (<Redirect to="/administration/dashboard"></Redirect>);
     }
     return (
       <div className={classes.container}>

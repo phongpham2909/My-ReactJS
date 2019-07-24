@@ -12,7 +12,6 @@ import {
 const headerStyle = theme => ({
   appBar: {
     backgroundColor: "transparent",
-    boxShadow: "none",
     borderBottom: "0",
     marginBottom: "0",
     position: "absolute",
@@ -49,27 +48,27 @@ const headerStyle = theme => ({
     }
   },
   primary: {
-    backgroundColor: primaryColor,
+    backgroundColor: primaryColor[1],
     color: "#FFFFFF",
     ...defaultBoxShadow
   },
   info: {
-    backgroundColor: infoColor,
+    backgroundColor: infoColor[1],
     color: "#FFFFFF",
     ...defaultBoxShadow
   },
   success: {
-    backgroundColor: successColor,
+    backgroundColor: successColor[1],
     color: "#FFFFFF",
     ...defaultBoxShadow
   },
   warning: {
-    backgroundColor: warningColor,
+    backgroundColor: warningColor[1],
     color: "#FFFFFF",
     ...defaultBoxShadow
   },
   danger: {
-    backgroundColor: dangerColor,
+    backgroundColor: dangerColor[1],
     color: "#FFFFFF",
     ...defaultBoxShadow
   },

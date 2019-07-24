@@ -14,14 +14,10 @@ import Add from "@material-ui/icons/Add";
 import GridContainer from "../../../components/Pages/Grid/GridContainer";
 import GridItem from "../../../components/Pages/Grid/GridItem.jsx";
 import NavPills from "../../../components/Pages/NavPills/NavPills.jsx";
-//import Badge from "../../../components/Pages/Badge/Badge.jsx";
-//import Muted from "../../../components/Pages/Typography/Muted.jsx";
 import Parallax from "../../../components/Pages/Parallax/Parallax.jsx";
 import Clearfix from "../../../components/Pages/Clearfix/Clearfix.jsx";
 import Button from "../../../components/Pages/CustomButtons/Button.jsx";
-
 import avatar from '../../../assets/img/placeholder.jpg';
-
 import profilePageStyle from "../../../assets/jss/material-kit-pro-react/views/profilePageStyle.jsx";
 import SectionInformation from "./Sections/SectionInformation";
 import SectionMyOrder from "./Sections/SectionMyOrder";
@@ -35,7 +31,7 @@ class ProfilePage extends React.Component {
     document.body.scrollTop = 0;
   }
   render() {
-    const { classes, match, actFetchCustomerById, infoCustomer, actUpdateInfoCustomer } = this.props;
+    const { classes, match, actFetchCustomerById, infoCustomer, actUpdateInfoCustomer, ordersCustomer } = this.props;
     const imageClasses = classNames(
       classes.imgRaised,
       classes.imgRoundedCircle,
@@ -102,7 +98,7 @@ class ProfilePage extends React.Component {
                     tabButton: "My Order",
                     tabIcon: ShoppingBasket,
                     tabContent: (
-                      <SectionMyOrder />
+                      <SectionMyOrder ordersCustomer={ordersCustomer}/>
                     )
                   },
                   {
